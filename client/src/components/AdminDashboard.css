@@ -1,0 +1,37 @@
+.admin-dashboard {
+    background-color: #f8f9fa;
+    padding: 5px;
+    border-radius: 8px;
+  }
+  .dashboard-header {
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .dashboard-header1 {
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    border-radius: 8px;
+  }
+  .admin-dashboard h4 {
+    color: #007bff;
+  }
+  
+  .admin-dashboard .nav-tabs .nav-link.active {
+    background-color: #E10174;
+    color: white;
+  }
+  
+  .admin-dashboard .nav-tabs .nav-link {
+    color: #007bff;
+  }
+  
+  .admin-dashboard .tab-content {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+  }

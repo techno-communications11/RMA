@@ -1,0 +1,93 @@
+/* MarketImageStats.css */
+.market-card {
+    transition: all 0.3s ease;
+    border: none;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+}
+
+.market-card:hover {
+    transform: translateX(4px);
+    border-left-color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+.market-card.selected {
+    border-left-color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+.store-card {
+    border: none;
+    border-left: 4px solid #6c757d;
+    transition: all 0.3s ease;
+}
+
+.store-card:hover {
+    background-color: #f8f9fa;
+}
+
+.stats-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.stats-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.progress {
+    height: 6px;
+    background-color: #e9ecef;
+}
+
+.markets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stores-container {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 2px dashed #dee2e6;
+}
+
+.slide-down {
+    animation: slideDown 0.3s ease-out;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
