@@ -3,7 +3,7 @@ const getImageUrl = async (req, res) => {
       const { key } = req.params; // Assume key is passed as a URL parameter
   
       const params = {
-        Bucket: process.env.S3_BUCKET_NAME,
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: key,
         Expires: 60 * 5 // URL expires in 5 minutes
       };
