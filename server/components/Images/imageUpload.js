@@ -1,6 +1,6 @@
 // const { upload } = require('../multer/multerConfig'); // Import multer upload configuration
-const { uploadFileToS3 } = require('../multer/uploadToS3'); // Import S3 upload function
-const db = require('../databaseConnection/db'); // Import your database connection
+const { uploadFileToS3 } = require('../../multer/uploadToS3'); // Import S3 upload function
+const db = require('../../databaseConnection/db'); // Import your database connection
 const fs = require('fs'); // Import fs to delete the file after upload
 
 // Handle the image upload and save URL to DB

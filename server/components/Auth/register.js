@@ -1,4 +1,4 @@
-const db = require('../databaseConnection/db'); // Assuming db is using mysql2 with promise support
+const db = require('../../databaseConnection/db.js'); // Assuming db is using mysql2 with promise support
 const bcrypt = require('bcryptjs');
 
 // The Register function

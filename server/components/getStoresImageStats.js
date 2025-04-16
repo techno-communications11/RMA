@@ -16,7 +16,7 @@ const getMarketImageCounts = async (req, res) => {
         `;
         // console.log('Executing query:', query);
         const [results] = await db.execute(query);
-        // console.log('Query results:', results);
+        console.log('Query results:', results);
         res.status(200).json(results);
     } catch (error) {
         console.error('Error fetching market image counts:', error);

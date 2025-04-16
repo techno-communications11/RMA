@@ -1,30 +1,43 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
-require('dotenv').config();
 const cors = require('cors');
-const db = require('./databaseConnection/db'); // Ensure database connection logic is correctly implemented
-const router = require('./routes/auth.route'); // Use require for CommonJS consistency
-
+const cookieParser = require('cookie-parser');
+const db = require('./databaseConnection/db');
+const authRouter = require('./routes/auth.route');
 
 const app = express();
 
-// Middleware to parse JSON
+// Middleware
+app.use(
+  cors({
+    origin: 'http://localhost:3001', // Match your frontend (was 3001)
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
+app.use(cookieParser());
 app.use(express.json());
 
-// CORS Configuration
-const corsOptions = {
-  origin: 'http://localhost:3001', // Allow only requests from this domain
-  methods: ['GET', 'POST'],       // Allow specific HTTP methods
-  allowedHeaders: ['Content-Type'], // Allow specific headers
-};
-app.use(cors(corsOptions));
-
-// Serve static files from the 'public' folder
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Use routes
-app.use('/auth', router); 
+// Routes
+app.use('/api', authRouter); // Changed from /auth to /api
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something broke!' });
+});
 
 // Start server
-const PORT = process.env.PORT || 3000; // Use environment variable if available
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`)); 
+const PORT = process.env.PORT || 5000; // Changed to 5000 to match previous
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+  // Verify database connection
+  db.query('SELECT 1')
+    .then(() => console.log('Database connected'))
+    .catch((err) => console.error('Database connection failed:', err));
+});
