@@ -1,0 +1,14 @@
+.dashboard-wrapper {
+    padding: 2rem;
+    background: #f5f6fa;
+    min-height: 100vh;
+  }
+  
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .content-section {
+    padding: 1rem;
+  }

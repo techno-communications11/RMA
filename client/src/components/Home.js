@@ -1,12 +1,14 @@
 import React from "react";
-import {jwtDecode} from "jwt-decode"; // Correct import (no curly braces for default export)
-import Upload from "./Upload";
-import Table from "./Table";
+ // Correct import (no curly braces for default export)
+import Upload from "./RMAdata/Upload";
+import Table from "../components/Utilitycomponents/Table";
+import { useUserContext } from "./Utilitycomponents/MyContext";
+
 
 
 function Home() {
-  const token = localStorage.getItem("token");
-  const role=jwtDecode(token).role;
+ const {userData}=useUserContext();
+  const role=userData.role;
 
 
   return (
