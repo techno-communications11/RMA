@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Login from './components/Auth/Login/Login.js';
-import { Register } from './components/Auth/Register/Register.js';
-import Navbar from './components/Utilitycomponents/CustomNavbar.js';
-import Home from './components/Home';
-import Updatepassword from './components/Auth/Updatepassword';
-import RegisterMarket from './components/Auth/RegisterMarket';
-import RegisterStore from './components/Auth/RegisterStore';
-import AdminDashboard from './components/Dashboard/AdminDashboard.js';
-import ProtectedRoute from './components/Utilitycomponents/ProtectedRoute.js';
-import { UserProvider, useUserContext } from './components/Utilitycomponents/MyContext.js';
-import UserDashboard from './components/Dashboard/UserDashboard/UserDashboard.js';
+import Login from './Pages/Login.js';
+import Register from './Pages/Register.js';
+import Navbar from './Components/Layout/CustomNavbar.js'
+import Home from './Pages/Home.js';
+import UpdatePassword from './Pages/Updatepassword.js';
+import RegisterMarket from './Pages/RegisterMarket.js';
+import RegisterStore from './Pages/RegisterStore.js';
+import AdminDashboard from './Pages/AdminDashboard.js';
+import ProtectedRoute from './Components/Misc/ProtectedRoute.js';
+import { UserProvider, useUserContext } from './Components/Context/MyContext.js';
+import UserDashboard from './Pages/UserDashboard.js';
 
 const AppContent = () => {
   const { isAuthenticated, userData, loading } = useUserContext();
@@ -36,7 +36,7 @@ const AppContent = () => {
           element={
             isAuthenticated && userData && userData.role ? (
               <Navigate
-                to={userData.role === 'admin' ? '/adminDashboard' : '/userDashboard'}
+                to={userData.role === 'user' ? '/userDashboard' : '/adminDashboard'}
                 replace
               />
             ) : (
@@ -45,7 +45,7 @@ const AppContent = () => {
           }
         />
         <Route path="/register" element={<Register />} />
-        <Route path="/resetpassword" element={<Updatepassword />} />
+        <Route path="/resetpassword" element={<UpdatePassword />} />
 
         {/* Private routes */}
         <Route
@@ -57,7 +57,15 @@ const AppContent = () => {
           }
         />
         <Route
-          path="/home"
+          path="/home/:storename"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/homedata"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <Home />

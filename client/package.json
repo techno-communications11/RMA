@@ -9,7 +9,6 @@
     "cra-template": "1.2.0",
     "framer-motion": "^12.0.5",
     "jwt-decode": "^4.0.0",
-    "lottie-react": "^2.4.1",
     "lucide-react": "^0.473.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.7",
@@ -21,6 +20,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.3",
     "recharts": "^2.15.0",
+    "styled-components": "^6.1.17",
     "web-vitals": "^4.2.4",
     "xlsx": "^0.18.5"
   },

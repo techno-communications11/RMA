@@ -1,0 +1,44 @@
+
+    .form-control {
+      height: 45px;
+      border-radius: 8px;
+      border: 2px solid #f472b6;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #db2777;
+      box-shadow: 0 0 0 0.2rem rgba(219, 39, 119, 0.25);
+    }
+
+    .text-pink-600 {
+      color: #db2777;
+    }
+
+    .btn-pink {
+      background-color: #ec4899;
+      border: none;
+      height: 45px;
+      border-radius: 8px;
+    }
+
+    .btn-pink:hover {
+      background-color: #db2777;
+    }
+
+    .hover-lift {
+      transition: transform 0.2s;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-2px);
+    }
+
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+
+    .react-datepicker__input-container input {
+      padding-right: 35px;
+    }
+  
