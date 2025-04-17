@@ -146,7 +146,7 @@ const Markets = () => {
           </p>
         </div>
         <div className="col-12 col-md-auto d-flex justify-content-center align-items-center mt-3 mt-md-0">
-          <MarketsFilter onFilter={handleMarketFilter} />
+          <MarketsFilter onFilter={handleMarketFilter} marketsData={marketsData} />
         </div>
       </div>
       {error && (

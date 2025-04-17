@@ -151,45 +151,7 @@ const Table = () => {
     }
   }, [state.search, state.data]);
 
-  // Handle file upload
-  const handleFileUpload = async (e, row) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (!state.ntid[row.serial] || state.ntid[row.serial].length !== 8) {
-      showAlert('NTID must be 8 characters long.', 'warning');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('serial', row.serial);
-    formData.append('ntid', state.ntid[row.serial]);
-
-    try {
-      const response = await axios.post(`${BASE_URL}/uploadimage`, formData, {
-        withCredentials: true,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      if (response.status === 200) {
-        showAlert('File uploaded successfully!', 'success');
-        const updatedData = state.data.map(item =>
-          item.serial === row.serial
-            ? { ...item, imageurl: response.data.imageurl || file.name, ntid: state.ntid[row.serial] }
-            : item
-        );
-        
-        updateState({ 
-          data: updatedData,
-          filteredData: updatedData,
-          ntid: { ...state.ntid, [row.serial]: '' }
-        });
-      }
-    } catch (error) {
-      showAlert(error.response?.data?.error || 'Error uploading file.');
-    }
-  };
+ 
 
   // Handle modal operations
   const handleModalChange = (e) => {
@@ -312,8 +274,7 @@ const Table = () => {
                 modal: { ...state.modal, data } 
               })}
               filteredData={state.filteredData}
-              handleFileUpload={handleFileUpload}
-              handleNtidChange={handleNtidChange}
+                handleNtidChange={handleNtidChange}
               setSerial={(serial) => updateState({ serial })}
               setModalFields={(fields) => updateState({ 
                 modal: { ...state.modal, fields } 

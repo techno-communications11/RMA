@@ -1,6 +1,6 @@
 // src/components/TableHeader.jsx
 import React from 'react';
-import * as S from './TableBody.styles'; // Make sure TableHeader is a styled component
+
 
 const TableHeader = ({ role }) => {
   const columns = [
@@ -17,19 +17,19 @@ const TableHeader = ({ role }) => {
     { label: 'RMANumber' },
     { label: 'UPSTrackingNo' },
     { label: 'Ntid', roles: ['user'] },
-    { label: 'Image' },
+    { label: 'Verify', roles:['user'] },
     { label: 'Actions', roles: ['manager', 'admin'] },
   ];
 
   return (
-    <S.TableHeader>
-      <tr className="text-center">
+    <thead>
+      <tr className=" text-center">
         {columns.map((col, index) => {
           if (col.roles && !col.roles.includes(role)) return null;
           return (
             <th
-              className="text-nowrap"
-              style={{ backgroundColor: '#E01074', color: 'white' }}
+             className='small'
+              style={{backgroundColor:'#E10174',color:'#fff'}}
               key={index}
             >
               {col.label}
@@ -37,8 +37,10 @@ const TableHeader = ({ role }) => {
           );
         })}
       </tr>
-    </S.TableHeader>
+    </thead>
   );
 };
 
 export default TableHeader;
+
+

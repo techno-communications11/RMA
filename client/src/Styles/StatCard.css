@@ -1,19 +1,48 @@
 .stat-card {
-    background: white;
-     margin-top:30px;
-    border-radius: 8px;
-    padding: 6rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.stat-card.animate-in {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.stat-card:not(.animate-in) {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+/* Color classes */
+.text-primary {
+  color: #3b82f6;
+}
+
+.text-warning {
+  color: #f59e0b;
+}
+
+.text-success {
+  color: #10b981;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stats-grid {
+      grid-template-columns: 1fr;
   }
   
-  .stat-card.animate-in {
-    transform: translateY(0);
-    opacity: 1;
+  .stat-card {
+      padding: 1rem;
   }
-  
-  .stat-card:not(.animate-in) {
-    transform: translateY(20px);
-    opacity: 0;
-  }
+}

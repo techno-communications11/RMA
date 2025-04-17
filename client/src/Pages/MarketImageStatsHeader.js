@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { 
   FaImages, 
@@ -8,12 +8,28 @@ import {
 } from "react-icons/fa";
 import MarketsFilter from "../Components/Filters/MarketsFilter";
 import DateFilter from "../Components/Filters/DateFilter";
+import fetchMarketData from "./fetchMarketData";
 
 export const MarketImageStatsHeader = ({ 
   error, 
   onDateFilter, 
   onMarketFilter 
 }) => {
+
+   const [marketData,setMarketsData]=useState([]);
+
+  const handleFetchData = async () => {
+    try {
+      const data = await fetchMarketData(setLoading);
+      setMarketsData(data);
+    } catch (error) {
+      // Handle error in your component
+      setError(error.message);
+    }
+  };
+  useEffect=()=>({
+    handleFetchData();
+  },[])
   return (
     <div className="d-flex align-items-center mb-2 flex-column flex-md-row">
       {/* Date Filter Section */}
@@ -36,7 +52,7 @@ export const MarketImageStatsHeader = ({
 
       {/* Markets Filter Section */}
       <div className="col-12 col-md-auto d-flex justify-content-center">
-        <MarketsFilter onFilter={onMarketFilter} />
+        <MarketsFilter onFilter={onMarketFilter} marketsData={marketsData} />
       </div>
 
       {error && (

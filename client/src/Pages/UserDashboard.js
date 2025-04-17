@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useUserContext } from '../Components/Context/MyContext';
 import DashboardHeader from '../Components/Layout/DashboardHeader';
 import StatsGrid from '../Components/Cards/StatsGrid';
-import PieChartCard from '../Components/Charts/PieChartCard';
 import LoadingSpinner from '../Components/Messages/LoadingSpinner';
 import ErrorMessage from '../Components/Messages/ErrorMessage';
 import '../Styles/UserDashboard.css';
@@ -78,41 +77,26 @@ const UserDashboard = () => {
   if (!stats) return <LoadingSpinner />;
 
   return (
-    <div className="dashboard-wrapper">
-      {/* RMA Dashboard - Vertical Stack */}
-      <div className="dashboard-vertical-stack">
-        
-        {/* RMA Section */}
-        <div className="dashboard-section">
-          <DashboardHeader store={store} name="RMA Dashboard" />
-          <div className="horizontal-metrics">
-            <StatsGrid stats={stats} animate={animate} />
-            <div className="graph-wrapper">
-              <PieChartCard stats={stats} animate={animate} />
-            </div>
-          </div>
+    <div className="dashboard-container">
+      <DashboardHeader store={store} name="Dashboard" />
+      
+      <div className="dashboard-grid">
+        {/* RMA Dashboard */}
+        <div className="dashboard-card">
+          <h2 className="dashboard-title text-muted">RMA Dashboard</h2>
+          <StatsGrid stats={stats} animate={animate} />
         </div>
         
-        {/* XBM Section */}
-        <div className="dashboard-section">
-          <DashboardHeader store={store} name="XBM Dashboard" />
-          <div className="horizontal-metrics">
-            <StatsGrid stats={stats} animate={animate} />
-            <div className="graph-wrapper">
-              <PieChartCard stats={stats} animate={animate} />
-            </div>
-          </div>
+        {/* XBM Dashboard */}
+        <div className="dashboard-card">
+          <h2 className="dashboard-title text-muted">XBM Dashboard</h2>
+          <StatsGrid stats={stats} animate={animate} />
         </div>
         
-        {/* p... Section */}
-        <div className="dashboard-section">
-          <DashboardHeader store={store} name="Trade-IN Dashboard" />
-          <div className="horizontal-metrics">
-            <StatsGrid stats={stats} animate={animate} />
-            <div className="graph-wrapper">
-              <PieChartCard stats={stats} animate={animate} />
-            </div>
-          </div>
+        {/* Performance Dashboard */}
+        <div className="dashboard-card">
+          <h2 className="dashboard-title text-muted">Trade-IN Dashboard</h2>
+          <StatsGrid stats={stats} animate={animate} />
         </div>
       </div>
     </div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button, Form, Row, Col, Alert } from "react-bootstrap";
+import {  Form, Row, Col, Alert } from "react-bootstrap";
 import { FaCalendarAlt, FaFilter } from "react-icons/fa";
 import "../../Styles/DateFilter.css"
+import Button from "../Events/Button";
 
 const DateFilter = ({ onFilter }) => {
   const [startDate, setStartDate] = useState(null);
@@ -86,13 +87,12 @@ const DateFilter = ({ onFilter }) => {
           {/* Filter Button */}
           <Col md={2} className="d-flex align-items-end">
             <div className="d-flex gap-1 w-100">
+
               <Button
-                variant="primary"
+                variant="btn-primary"
                 onClick={handleFilter}
-                className="btn-pink flex-grow-1 hover-lift"
-              >
-                <FaFilter className="me-2" /> Filter
-              </Button>
+                label="Filter"
+              />
             </div>
           </Col>
         </Row>

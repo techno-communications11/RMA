@@ -80,7 +80,7 @@ function RegisterStore() {
           }}
           className="p-5 text-center"
         >
-          <Row className="justify-content-center gap-5 ">
+          <Row className="justify-content-center  ">
             <Col md={6} lg={4}>
               <div className="bg-white p-4 rounded shadow-lg p-4">
                 <div className="text-center mb-4">
@@ -132,13 +132,7 @@ function RegisterStore() {
                 )}
               </div>
             </Col>
-            <Col
-              md={6}
-              lg={5}
-              className="d-flex justify-content-center align-items-center"
-            >
-             
-            </Col>
+           
           </Row>
         </div>
       </div>

@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import TableCell from '../Cells/TableCell';
 import NtidCell from '../Cells/NtidCell';
-import ImageCell from '../Cells/ImageCell';
 import ActionCell from '../Cells/ActionCell';
 import AlertMessage from '../Messages/AlertMessage';
+import VerifyNtid from '../Cells/VerifyNtid';
 
 const TableRow = ({
   row,
@@ -12,19 +12,15 @@ const TableRow = ({
   role,
   ntid,
   handleNtidChange,
-  handleFileUpload,
+ 
   setModalData,
   setSerial,
 }) => {
   const [alert, setAlert] = useState({ message: '', type: '' });
 
-  const handleImageClick = (imageurl) => {
-    if (imageurl && typeof imageurl === 'string' && imageurl.trim() !== '') {
-      window.open(imageurl, '_blank');
-    } else {
-      setAlert({ message: 'Invalid image URL', type: 'danger' });
-    }
-  };
+  
+
+   console.log(ntid,"nnnn");
 
   return (
     <>
@@ -53,13 +49,13 @@ const TableRow = ({
             handleNtidChange={handleNtidChange}
           />
         )}
-        <ImageCell
-          row={row}
-          role={role}
-          ntid={ntid}
-          handleFileUpload={handleFileUpload}
-          handleImageClick={handleImageClick}
-        />
+        {
+          role==='user' && <VerifyNtid ntid={ntid}/>
+          
+          // <Upload />
+        }
+
+       
         {(role === 'manager' || role === 'admin') && (
           <ActionCell
             row={row}

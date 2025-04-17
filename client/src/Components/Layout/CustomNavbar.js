@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../Context/MyContext';
+import Button from '../Events/Button';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -11,8 +12,30 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const navLinks = [
   {
     to: '/homedata',
-    label: 'RMA Data',
+    label: 'RMA',
     roles: ['user'],
+  },
+{
+  to: '/uploads',
+  label: 'Uploads',
+  roles: ['manager'],
+
+},
+ 
+  {
+    to: '/homedata1',
+    label: 'XBM',
+    roles: ['user'],
+  },
+  {
+    to: '/homedata2',
+    label: 'Trade-IN',
+    roles: ['user'],
+  },
+  {
+    to: '/tracking',
+    label: 'Tracking',
+    roles: ['user','admin','manager'],
   },
   {
     to: '/register',
@@ -101,7 +124,7 @@ const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communicatio
                     key={link.to}
                     as={Link}
                     to={link.to}
-                    className="fw-bold mx-1"
+                    className="fw-bold mx-1 text-muted"
                     onClick={handleNavLinkClick}
                   >
                     {link.label}
@@ -112,12 +135,14 @@ const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communicatio
             {/* Logout Button */}
             {userData && (
               <Button
-                variant="danger"
-                className="fw-bold mx-1 d-flex align-items-center"
+                variant="btn-danger btn-sm"
+
+                
                 onClick={handleLogout}
-              >
-                <RiLogoutBoxRLine className="me-1" /> Logout
-              </Button>
+                label="Logout"
+              />
+                 
+              
             )}
           </Nav>
         </Navbar.Collapse>

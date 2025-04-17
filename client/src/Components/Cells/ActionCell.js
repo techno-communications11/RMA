@@ -1,14 +1,14 @@
 // src/components/ActionCell.jsx
 import React from 'react';
 import { MdError } from 'react-icons/md';
-import * as S from '../Tables/TableBody.styles';
+
 
 const ActionCell = ({ row, setModalData, setSerial }) => {
   return (
-    <td className={S.TableCell}>
+    <td className="">
       {row.imageurl && row.imageurl.trim() !== '' ? (
         <button
-          className="btn btn-primary btn-sm"
+          className="btn  btn-primary btn-sm"
           onClick={() => {
             setModalData(row);
             setSerial(row.serial);

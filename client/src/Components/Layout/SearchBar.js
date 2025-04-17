@@ -2,15 +2,15 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { CiSearch } from 'react-icons/ci';
+import Input from '../Events/Input';
 
 const SearchBar = ({ search, handleSearch }) => {
   return (
     <Row className="justify-content-center">
       <Col md={6} sm={8} className="mb-2 mt-2">
         <div className="d-flex justify-content-center border border-2 rounded-pill px-2">
-          <input
-            type="text"
-            className="form-control shadow-none border-0"
+          <Input
+            varient="form-control shadow-none border-0 bg-transparent"
             placeholder="Search..."
             value={search}
             onChange={handleSearch}

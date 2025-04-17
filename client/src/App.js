@@ -11,7 +11,9 @@ import AdminDashboard from './Pages/AdminDashboard.js';
 import ProtectedRoute from './Components/Misc/ProtectedRoute.js';
 import { UserProvider, useUserContext } from './Components/Context/MyContext.js';
 import UserDashboard from './Pages/UserDashboard.js';
-
+import UserImageUploads from './Pages/UserImageUploads.js';
+import Tracking from './Pages/Tracking.js';
+import Uploads from './Pages/Uploads.js';
 const AppContent = () => {
   const { isAuthenticated, userData, loading } = useUserContext();
   const location = useLocation();
@@ -46,6 +48,9 @@ const AppContent = () => {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/resetpassword" element={<UpdatePassword />} />
+        <Route path="/userimageupload/:key/:value" element={<ProtectedRoute isAuthenticated={isAuthenticated}>
+          <UserImageUploads/>
+        </ProtectedRoute>}/>
 
         {/* Private routes */}
         <Route
@@ -56,6 +61,25 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
+
+<Route
+          path="/tracking"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Tracking />
+            </ProtectedRoute>
+          }
+        />
+
+<Route
+          path="/uploads"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Uploads />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/home/:storename"
           element={
