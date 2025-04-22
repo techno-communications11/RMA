@@ -4,13 +4,12 @@
   height: 40vh;
   width: 100%;
   padding: 20px;
-
   box-sizing: border-box;
 }
 
 .dashboard-grid {
   display: grid;
-  margin-top: 5rem;
+  margin-top: 1rem;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   height: calc(100vh - 80px); /* Adjust based on header height */

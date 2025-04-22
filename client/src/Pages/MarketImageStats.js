@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { MarketImageStatsHeader } from "./MarketImageStatsHeader";
 import { MarketCard } from "../Components/Cards/MarketCard";
-import { StoresList } from "../Components/Misc/StoresList";
+import StoresList from "../Components/Misc/StoresList";
 import LoadingSpinner from "../Components/Messages/LoadingSpinner";
-
-import axios from "axios";
+import fetchMarketData from "../Components/Apis/GetMarketsImageCountsData";
+import GetStoresBymarket from "../Components/Apis/GetStoresBymarket";
 
 
 const MarketImageStats = () => {
@@ -23,28 +22,6 @@ const MarketImageStats = () => {
     setLoading(false);
   };
 
-  const fetchMarketData = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/get-market-image-counts`,
-        { withCredentials: true }
-      );
-      const data = response.data;
-
-      if (response.status === 200) {
-        setMarketsData(data);
-        setFilteredMarkets(data); // Set initial filtered data to all markets
-      } else {
-        handleError(data.message || "Failed to fetch market data");
-      }
-    } catch (err) {
-      handleError("Error fetching market data");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const fetchStoresData = async (market) => {
     if (selectedMarket === market) {
       setSelectedMarket("");
@@ -52,37 +29,60 @@ const MarketImageStats = () => {
       return;
     }
 
-    setLoading(true);
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/get-stores-by-market?market=${market}`,
-        { withCredentials: true }
-      );
-      const data = response.data;
-
-      if (response.status === 200) {
-        setStoresData(data);
+      const data = await GetStoresBymarket(market, setLoading); // GetStoresBymarket returns response.data
+      if (Array.isArray(data) && data.length > 0) {
+        // Normalize stores data to ensure consistent structure
+        const normalizedStores = data.map((store) => ({
+          store_name: store.value || store.store_name || "Unknown Store",
+          label: store.label || store.store_name || "Unknown Store",
+          totalRma: store.totalRma || 0,
+        }));
+        setStoresData(normalizedStores);
         setSelectedMarket(market);
       } else {
-        handleError(data.message || "Failed to fetch store data");
+        handleError("No stores found for this market");
+        setStoresData([]);
       }
     } catch (err) {
-      handleError("Error fetching store data");
-    } finally {
-      setLoading(false);
+      handleError(err.message || "Failed to fetch store data");
+      setStoresData([]);
     }
   };
 
   useEffect(() => {
-    fetchMarketData();
+    const fetchData = async () => {
+      try {
+        const data = await fetchMarketData(setLoading);
+        if (Array.isArray(data) && data.length > 0) {
+          // Normalize markets data
+           console.log("Market data:", data); // Log for debugging
+          const normalizedMarkets = data.map((market) => ({
+            market: market.value || market.Market || "Unknown Market",
+            label: market.label || market.Market || "Unknown Market",
+            uploaded: market.uploaded || 0,
+            notUploaded: market.notUploaded || 0,
+            createdAt: market.createdAt || new Date(),
+          }));
+          setMarketsData(normalizedMarkets);
+          setFilteredMarkets(normalizedMarkets);
+        } else {
+          handleError("No markets found");
+        }
+      } catch (err) {
+        handleError(err.message || "Failed to fetch market data");
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const handleStoreClick = (storename) => {
-    navigate(`/home/${storename}`);
+  const handleStoreClick = (paramed_store_name) => {
+    navigate(`/rmapage/${paramed_store_name}`);
   };
 
   const normalizeDate = (date) => {
-    return new Date(date).toISOString().split("T")[0]; // Get only the date part (YYYY-MM-DD)
+    return new Date(date).toISOString().split("T")[0]; // YYYY-MM-DD
   };
 
   const handleDateFilter = ({ startDate, endDate }) => {
@@ -102,7 +102,7 @@ const MarketImageStats = () => {
       setFilteredMarkets(marketsData);
     } else {
       const filtered = marketsData.filter((market) =>
-        market.market.toLowerCase().includes(selectedMarket.toLowerCase())
+        (market.market || market.label || "").toLowerCase().includes(selectedMarket.toLowerCase())
       );
       setFilteredMarkets(filtered);
     }
@@ -113,7 +113,7 @@ const MarketImageStats = () => {
       className="py-1 bg-light"
       style={{
         background:
-          "linear-gradient(135deg,rgb(229, 237, 248) 0%,rgba(213, 245, 246, 0.32) 50%,rgba(248, 223, 241, 0.83) 100%)",
+          "linear-gradient(135deg, rgb(229, 237, 248) 0%, rgba(213, 245, 246, 0.32) 50%, rgba(248, 223, 241, 0.83) 100%)",
       }}
     >
       <div className="container-fluid">
@@ -122,7 +122,6 @@ const MarketImageStats = () => {
           onDateFilter={handleDateFilter}
           onMarketFilter={handleMarketFilter}
         />
-
         {loading ? (
           <LoadingSpinner className="loading-indicator" />
         ) : (
@@ -133,7 +132,7 @@ const MarketImageStats = () => {
                 className={`col-md-${selectedMarket === market.market ? 12 : 6} animate__animated animate__fadeInUp`}
               >
                 <MarketCard
-                  market={market.market}
+                  market={market.label || market.market} // Use label for display
                   isSelected={selectedMarket === market.market}
                   onClick={() => fetchStoresData(market.market)}
                   uploadedCount={market.uploaded}
@@ -141,10 +140,9 @@ const MarketImageStats = () => {
                   role="button"
                   tabIndex={0}
                 />
-
                 {selectedMarket === market.market && (
                   <StoresList
-                    marketName={market.market}
+                    marketName={market.label || market.market}
                     stores={storesData}
                     onStoreClick={handleStoreClick}
                   />

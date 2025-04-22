@@ -1,23 +1,23 @@
 const db = require("../databaseConnection/db");
 
 const uploadData = async (req, res) => {
-  const { serial, RMADate, RMANumber, UPSTrackingNumber } = req.body;
+  const { old_imei, RMADate, RMANumber, ups_tracking_number } = req.body;
   // console.log(req.body,' data is to be body')  
 
   // Check if the necessary fields are present
-  if (!serial || !RMADate || !RMANumber || !UPSTrackingNumber) {
+  if (!old_imei || !RMADate || !RMANumber || !ups_tracking_number) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   // Construct the SQL query to update the data
   const query = `
-    Insert rma_upload_data  
-    (RMADate, RMANumber , UPSTrackingNumber,serial)
-    values(?,?,?,?)
+    Insert into tracking_details  
+    ( ups_tracking_number,old_imei)
+    values(?,?)
   `;
 
   // Values to be inserted into the query placeholders
-  const values = [RMADate, RMANumber, UPSTrackingNumber, serial];
+  const values = [RMADate, RMANumber, ups_tracking_number, old_imei];
 
   try {
     // Execute the query

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 // The Register function
 const register = async (req, res) => {
   let { email, password,role,store } = req.body;
-  // console.log('Incoming request body:', req.body);
+  console.log('Incoming request body:', req.body);
 
   if (!email || !password) {
     // console.error('Missing email or password');

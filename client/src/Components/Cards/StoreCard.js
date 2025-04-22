@@ -3,7 +3,7 @@ import { Card, Row, Col } from "react-bootstrap";
 import { FaStore, FaCamera, FaTimesCircle } from "react-icons/fa";
 
 export const StoreCard = ({ 
-  storeName, 
+  store_name, 
   uploadedCount, 
   notUploadedCount, 
   onClick 
@@ -19,7 +19,7 @@ export const StoreCard = ({
             <div className="d-flex align-items-center">
               <FaStore className="text-pink-400 me-2 store-icon" />
               <h6 className="mb-0 text-pink-600">
-                {storeName}
+                {store_name}
               </h6>
             </div>
           </Col>

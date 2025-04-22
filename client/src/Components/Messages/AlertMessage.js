@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Button from '../Events/Button';
+
 
 const AlertMessage = ({ message, type, onClose }) => {
   useEffect(() => {

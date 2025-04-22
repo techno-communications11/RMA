@@ -1,5 +1,5 @@
 const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner'); // Import getSignedUrl
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const db = require("../databaseConnection/db");
 
 const s3Client = new S3Client({
@@ -12,18 +12,24 @@ const s3Client = new S3Client({
 
 const generateSignedUrl = async (key) => {
   try {
-    // Ensure 'profilePhotos/' is added only once
-    const finalKey = key.startsWith('profilePhotos/') ? key : `profilePhotos/${key}`;
+    // Ensure key is not empty and is a string
+    if (!key || typeof key !== 'string') {
+      console.error('Invalid key provided:', key);
+      return null;
+    }
+
+    // Remove duplicate prefixes if any
+    const normalizedKey = key.replace(/^profilePhotos\//, '');
+    const finalKey = `profilePhotos/${normalizedKey}`;
 
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: finalKey,  // Correct the key before generating signed URL
+      Key: finalKey,
     });
 
-    const signedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });  // URL expires in 1 hour
-    return signedUrl;
+    return await getSignedUrl(s3Client, command, { expiresIn: 3600 });
   } catch (error) {
-    console.error("Error generating signed URL:", error);
+    console.error("Error generating signed URL for key:", key, error);
     return null;
   }
 };
@@ -32,48 +38,56 @@ const getdata = async (req, res) => {
   try {
     const [result] = await db.execute(`
       SELECT 
-        rma.serial, 
+      rma.id,
+        rma.old_imei, 
         rma.market, 
-        rma.storeid, 
-        rma.storename, 
-        rma.empid, 
-        rma.invoice, 
-        rma.modelname, 
-        rma.value, 
-        rma.createdat, 
-        ni.ntid, 
-        ni.imageurl, 
-        rmaud.RMADate, 
-        rmaud.RMANumber, 
-        rmaud.UPSTrackingNumber
+        rma.store_id, 
+        rma.store_name, 
+        rma.description, 
+        rma.refund_label_type, 
+        rma.new_exchange_imei, 
+        rma.employee_name, 
+        rma.created_at, 
+        rma.shipping_status,
+        rma.sold_date,
+        rma.tracking_details,
+        im.old_imei AS image_imei, 
+        im.image_url, 
+        td.ups_tracking_number
       FROM 
-        rmadata rma
+        rma_data rma
       LEFT JOIN 
-        ntid_image_url ni ON rma.serial = ni.serial
+        images im ON rma.old_imei = im.old_imei
       LEFT JOIN 
-        rma_upload_data rmaud ON rma.serial = rmaud.serial;
+        tracking_details td ON rma.old_imei = td.old_imei
     `);
 
-    // Generate signed URLs for images
     const dataWithSignedUrls = await Promise.all(
       result.map(async (row) => {
-        if (row.imageurl) {
-          // Strip the profilePhotos/ prefix if needed
-          const imageUrlWithoutPrefix = row.imageurl.startsWith('profilePhotos/') 
-            ? row.imageurl.replace('profilePhotos/', '') 
-            : row.imageurl;
-
-          const signedUrl = await generateSignedUrl(imageUrlWithoutPrefix);
-          row.signedImageUrl = signedUrl; // Add the signed URL to the row
+        try {
+          // Use consistent field name (image_url from query)
+          if (row.image_url) {
+            const signedUrl = await generateSignedUrl(row.image_url);
+            return {
+              ...row,
+              signedImageUrl: signedUrl || null
+            };
+          }
+          return row;
+        } catch (error) {
+          console.error('Error processing row:', row.old_imei, error);
+          return row; // Return original row if processing fails
         }
-        return row;
       })
     );
 
     res.status(200).json(dataWithSignedUrls);
   } catch (error) {
-    console.error("Error fetching data from the database:", error);
-    res.status(500).json({ error: "Failed to fetch data from the database" });
+    console.error("Error in getdata:", error);
+    res.status(500).json({ 
+      error: "Failed to fetch data",
+      details: error.message 
+    });
   }
 };
 

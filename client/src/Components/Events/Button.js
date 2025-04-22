@@ -24,11 +24,16 @@ function Button({
 }
 
 Button.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node
+  ]).isRequired,
   variant: PropTypes.string,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   disabled: PropTypes.bool
 };
+
+
 
 export default Button;

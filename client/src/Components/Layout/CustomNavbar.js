@@ -1,58 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../Context/MyContext';
 import Button from '../Events/Button';
+import navLinks from '../../Constants/NavLinks';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-// Define navigation links with roles that can access them
-const navLinks = [
-  {
-    to: '/homedata',
-    label: 'RMA',
-    roles: ['user'],
-  },
-{
-  to: '/uploads',
-  label: 'Uploads',
-  roles: ['manager'],
-
-},
- 
-  {
-    to: '/homedata1',
-    label: 'XBM',
-    roles: ['user'],
-  },
-  {
-    to: '/homedata2',
-    label: 'Trade-IN',
-    roles: ['user'],
-  },
-  {
-    to: '/tracking',
-    label: 'Tracking',
-    roles: ['user','admin','manager'],
-  },
-  {
-    to: '/register',
-    label: 'Register',
-    roles: ['admin'],
-  },
-  {
-    to: '/registerstore',
-    label: 'Register Store',
-    roles: ['admin'],
-  },
-  {
-    to: '/resetpassword',
-    label: 'Reset Password',
-    roles: ['admin'],
-  },
-];
 
 const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communications LLC' }) => {
   const { userData, setUserData, setIsAuthenticated } = useUserContext();
@@ -61,7 +16,7 @@ const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communicatio
 
   const handleLogout = async () => {
     try {
-      // Call backend logout endpoint
+    
       await fetch(`${BASE_URL}/logout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -70,7 +25,6 @@ const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communicatio
     } catch (err) {
       console.error('Logout error:', err);
     } finally {
-      // Clear specific auth-related localStorage keys (if any)
       localStorage.removeItem('authToken'); // Adjust based on your app's keys
       // Reset context
       setUserData(null);

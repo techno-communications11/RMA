@@ -12,14 +12,13 @@ const getStoresForMarket = async (req, res) => {
 
         const getStoresQuery = `
             SELECT 
-                storename AS storeName, 
-                COUNT(serial) AS totalRma 
-            FROM rmadata 
+                store_name AS storeName, 
+                COUNT(old_imei) AS totalRma 
+            FROM rma_data 
             WHERE market = ? 
-            GROUP BY storename;
+            GROUP BY store_name;
         `;
-        // console.log('Executing getStoresQuery:', getStoresQuery);
-        // console.log('Query parameters:', [market]);
+      
 
         const [stores] = await db.execute(getStoresQuery, [market]);
         // console.log('Stores data:', stores);

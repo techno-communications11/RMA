@@ -17,9 +17,8 @@ import "../Styles/Markets.css";
 import DateFilter from "../Components/Filters/DateFilter";
 import MarketsFilter from "../Components/Filters/MarketsFilter";
 import LoadingSpinner from "../Components/Messages/LoadingSpinner";
-
-
-import axios from "axios";
+import GetMarkets from "../Components/Apis/GetMarkets";
+import GetStoresBymarket from "../Components/Apis/GetStoresBymarket"; // Import your API
 import { useNavigate } from "react-router-dom";
 
 const Markets = () => {
@@ -28,32 +27,24 @@ const Markets = () => {
   const [selectedMarketStores, setSelectedMarketStores] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [storeLoading, setStoreLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const navigate = useNavigate();
-  const [storeloading,setStoreloading]=useState(false);
-
 
   const getMarketsData = async () => {
-    setLoading(true);
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/get-markets-data`,
-        { withCredentials: true }
-      );
-      const data = response.data;
-
-      if (response.status === 200) {
+      const data = await GetMarkets(setLoading); // Expecting array of markets
+      if (Array.isArray(data) && data.length > 0) {
         setMarketsData(data);
-        setFilteredData(data); // Set initial filtered data to all markets
+        setFilteredData(data); // Initialize filtered data
       } else {
-        setError(data.message || "Failed to fetch data");
+        setError("No markets found");
       }
-    } catch (error) {
-      setError("Failed to fetch data");
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      setError(err.message || "Failed to fetch markets");
     }
   };
+   
 
   const getStoresForMarket = async (marketName) => {
     if (marketName === selectedMarket) {
@@ -62,24 +53,24 @@ const Markets = () => {
       return;
     }
 
-    setStoreloading(true);
+    setStoreLoading(true);
     setSelectedMarket(marketName);
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/get-stores?market=${marketName}`,
-        { withCredentials: true }
-      );
-      const data = response.data;
+      const data = await GetStoresBymarket(marketName, setStoreLoading);
 
-      if (response.status === 200) {
-        setSelectedMarketStores(data);
-      } else {
-        setError(data.message || "Failed to fetch stores");
-      }
-    } catch (error) {
-      setError("Failed to fetch stores");
-    } finally {
-      setStoreloading(false);
+       console.log("Stores data response:", data); // Log for debugging
+      // Normalize data to ensure consistent structure
+      const normalizedStores = Array.isArray(data)
+        ? data.map((store) => ({
+            store_name: store.value || store.store_name || "Unknown",
+            totalRma: store.totalRma || 0,
+            label: store.label || store.store_name || "Unknown",
+          }))
+        : [];
+      setSelectedMarketStores(normalizedStores);
+    } catch (err) {
+      setError(err.message || "Failed to fetch stores");
+      setSelectedMarketStores([]);
     }
   };
 
@@ -88,7 +79,7 @@ const Markets = () => {
   }, []);
 
   const normalizeDate = (date) => {
-    return new Date(date).toISOString().split("T")[0]; // Get only the date part (YYYY-MM-DD)
+    return new Date(date).toISOString().split("T")[0]; // YYYY-MM-DD
   };
 
   const handleFilter = ({ startDate, endDate }) => {
@@ -113,21 +104,29 @@ const Markets = () => {
       getStoresForMarket(selectedMarket);
     } else {
       setFilteredData(marketsData);
-      setSelectedMarketStores([]); // Clear stores if no market is selected
+      setSelectedMarketStores([]);
     }
   };
 
-  const handleClickNetPage = (storename) => {
-     console.log(storename);
-    navigate(`/home/${storename}`);
+  const handleClickNetPage = (paramed_store_name) => {
+    console.log("Navigating to store:", paramed_store_name);
+    navigate(`/rmapage/${paramed_store_name}`);
   };
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div
       className="py-1 container-fluid"
       style={{
         background:
-          "linear-gradient(135deg,rgb(229, 237, 248) 0%,rgba(213, 245, 246, 0.32) 50%,rgba(248, 223, 241, 0.83) 100%)",
+          "linear-gradient(135deg, rgb(229, 237, 248) 0%, rgba(213, 245, 246, 0.32) 50%, rgba(248, 223, 241, 0.83) 100%)",
       }}
     >
       <div className="row text-start mb-1">
@@ -176,7 +175,7 @@ const Markets = () => {
                     <Card.Title className="d-flex align-items-center mb-2">
                       <FaRegBuilding className="text-pink-600 me-2 bounce-icon" />
                       <span className="h4 mb-0 fw-bold text-pink-600 text-capitalize">
-                        {market.marketName?.toLowerCase()}
+                        {market.marketName?.toLowerCase() || "Unknown Market"}
                       </span>
                       <BsFillPatchCheckFill className="ms-2 text-pink-600" />
                     </Card.Title>
@@ -193,7 +192,7 @@ const Markets = () => {
                     <div className="d-flex align-items-center justify-content-md-end">
                       <FaChartLine className="text-success me-2 pulse-icon" />
                       <span className="h5 mb-0 text-pink-600">
-                        RMA: {market.totalRma}
+                        RMA: {market.totalRma || 0}
                       </span>
                       <span className="ms-3 transition-icon">
                         {selectedMarket === market.marketName ? (
@@ -208,53 +207,51 @@ const Markets = () => {
               </Card.Body>
             </Card>
             {selectedMarket === market.marketName && (
-              <Card className="constainer-fluid stores-card mt-3 border-0 shadow-sm slide-down">
+              <Card className="container-fluid stores-card mt-3 border-0 shadow-sm slide-down">
                 <Card.Body className="bg-pink-50 rounded p-4">
-                  {storeloading ? (
-                    <LoadingSpinner/>
-                  ) : (
-                    selectedMarketStores.length > 0 && (
-                      <div className="w-100">
-                        <h5 className="mb-4 pb-2 border-bottom border-pink-200 d-flex align-items-center text-capitalize">
-                          <FaStore className="text-pink-600 me-2" />
-                          Stores in {market.marketName?.toLowerCase()}
-                        </h5>
-                        <Row className="g-4 " style={{cursor:'pointer'}}>
-                          {selectedMarketStores.map((store, storeIndex) => (
-                            <Col
-                              key={storeIndex}
-                              md={6}
-                              className="clickable-column"
-                              onClick={() =>
-                                handleClickNetPage(store.storeName)
-                              }
-                            >
-                              <Card className="store-item h-100 border-0 bg-white hover-scale">
-                                <Card.Body className="p-3">
-                                  <div className="d-flex justify-content-between align-items-center">
-                                    <div>
-                                      <FaStore className="text-pink-600 mb-2 store-icon" />
-                                      <h6 className="mb-1 text-pink-600 text-capitalize">
-                                        {store.storeName.toLowerCase()}
-                                      </h6>
-                                    </div>
-                                    <div className="text-end">
-                                      <small className="text-muted d-block">
-                                        Total RMA
-                                      </small>
-                                      <span className="h6 mb-0 text-success d-flex align-items-center">
-                                        <BsArrowRepeat className="me-1" />
-                                        {store.totalRma}
-                                      </span>
-                                    </div>
+                  {storeLoading ? (
+                    <LoadingSpinner />
+                  ) : selectedMarketStores.length > 0 ? (
+                    <div className="w-100">
+                      <h5 className="mb-4 pb-2 border-bottom border-pink-200 d-flex align-items-center text-capitalize">
+                        <FaStore className="text-pink-600 me-2" />
+                        Stores in {market.marketName?.toLowerCase()}
+                      </h5>
+                      <Row className="g-4" style={{ cursor: "pointer" }}>
+                        {selectedMarketStores.map((store, storeIndex) => (
+                          <Col
+                            key={storeIndex}
+                            md={6}
+                            className="clickable-column"
+                            onClick={() => handleClickNetPage(store.store_name)}
+                          >
+                            <Card className="store-item h-100 border-0 bg-white hover-scale">
+                              <Card.Body className="p-3">
+                                <div className="d-flex justify-content-between align-items-center">
+                                  <div>
+                                    <FaStore className="text-pink-600 mb-2 store-icon" />
+                                    <h6 className="mb-1 text-pink-600 text-capitalize">
+                                      {store.label?.toLowerCase() || store.store_name?.toLowerCase() || "Unknown Store"}
+                                    </h6>
                                   </div>
-                                </Card.Body>
-                              </Card>
-                            </Col>
-                          ))}
-                        </Row>
-                      </div>
-                    )
+                                  <div className="text-end">
+                                    <small className="text-muted d-block">
+                                      Total RMA
+                                    </small>
+                                    <span className="h6 mb-0 text-success d-flex align-items-center">
+                                      <BsArrowRepeat className="me-1" />
+                                      {store.totalRma || 0}
+                                    </span>
+                                  </div>
+                                </div>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
+                    </div>
+                  ) : (
+                    <p>No stores found for this market.</p>
                   )}
                 </Card.Body>
               </Card>

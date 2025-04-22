@@ -1,17 +1,16 @@
-// src/components/ActionCell.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 import { MdError } from 'react-icons/md';
 
-
-const ActionCell = ({ row, setModalData, setSerial }) => {
+const ActionCell = ({ row, setModalData, setOld_imei }) => {
   return (
-    <td className="">
+    <td>
       {row.imageurl && row.imageurl.trim() !== '' ? (
         <button
-          className="btn  btn-primary btn-sm"
+          className="btn btn-primary btn-sm"
           onClick={() => {
             setModalData(row);
-            setSerial(row.serial);
+            setOld_imei(row.old_imei);
           }}
           aria-label="Update row"
         >
@@ -24,6 +23,12 @@ const ActionCell = ({ row, setModalData, setSerial }) => {
       )}
     </td>
   );
+};
+
+ActionCell.propTypes = {
+  row: PropTypes.object.isRequired,
+  setModalData: PropTypes.func.isRequired,
+  setOld_imei: PropTypes.func.isRequired,
 };
 
 export default ActionCell;

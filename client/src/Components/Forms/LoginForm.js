@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import * as S from "../LoginAssets/Login.styles";
-import LoadingSpinner from "../Messages/LoadingSpinner";
+
 
 const LoginForm = ({loading, credentials, error, handleChange, handleSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);

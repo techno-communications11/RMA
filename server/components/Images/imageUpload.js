@@ -1,52 +1,112 @@
-// const { upload } = require('../multer/multerConfig'); // Import multer upload configuration
-const { uploadFileToS3 } = require('../../multer/uploadToS3'); // Import S3 upload function
-const db = require('../../databaseConnection/db'); // Import your database connection
-const fs = require('fs'); // Import fs to delete the file after upload
+const { uploadFileToS3 } = require('../../multer/uploadToS3');
+const db = require('../../databaseConnection/db');
+const fs = require('fs').promises;
 
-// Handle the image upload and save URL to DB
 const imageUpload = async (req, res) => {
   try {
-    // Check if a file is uploaded
-    if (!req.file) {
-      return res.status(400).json({ error: "No image uploaded" });
+    // Check if files are uploaded
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).json({ error: 'No files uploaded' });
     }
 
-    // Get serial and ntid from the request body
-    const { serial, ntid } = req.body;
-    if (!serial || !ntid) {
-      return res.status(400).json({ error: "Serial and NTID are required" });
+    // Get old_imei and ntid from the request body
+    const { old_imei, ntid } = req.body;
+    if (!old_imei || !ntid) {
+      return res.status(400).json({ error: 'old_imei and ntid are required' });
     }
 
-    // Upload the image file to S3
-    const s3FileKey = await uploadFileToS3(req.file);
+    // Log for debugging
+    console.log('Request body:', req.body);
+    console.log('Uploaded files:', req.files);
 
-    // Generate the image URL based on the S3 file key
-    const imageUrl = `profilePhotos/${s3FileKey}`;
+    // Flatten req.files object into an array
+    const allFiles = Object.values(req.files).flat();
 
-    // Insert the URL into the database
-    const insertQuery = `INSERT INTO ntid_image_url (serial, imageurl, ntid) VALUES (?, ?, ?)`;
-    const [insertResult] = await db.query(insertQuery, [serial, imageUrl, ntid]);
+    // Separate image and CSV files
+    const imageFiles = allFiles.filter((file) =>
+      file.fieldname.match(/^image_\d+$/)
+    );
+    const csvFiles = allFiles.filter((file) => file.fieldname === 'csv');
 
-    if (insertResult.affectedRows === 1) {
-      // File successfully uploaded and URL stored in the database
-      // Now unlink (delete) the file from the 'uploads' folder
-      const uploadedFilePath = req.file.path;
-      fs.unlink(uploadedFilePath, (err) => {
-        if (err) {
-          console.error('Error deleting file from uploads folder:', err);
-          // Handle error if file deletion fails
-        } else {
-          console.log('File successfully deleted from uploads folder');
+    // Validate files
+    if (imageFiles.length > 4) {
+      return res.status(400).json({ error: 'Maximum 4 images allowed' });
+    }
+    if (csvFiles.length > 1) {
+      return res.status(400).json({ error: 'Only one CSV file allowed' });
+    }
+
+    // Start a database transaction
+    const connection = await db.getConnection();
+    await connection.beginTransaction();
+
+    try {
+      const imageUrls = [];
+      const uploadedFiles = [];
+
+      // Process image files
+      for (const file of imageFiles) {
+        const imageIdMatch = file.fieldname.match(/^image_(\d+)$/);
+        if (!imageIdMatch) {
+          throw new Error(`Invalid fieldname: ${file.fieldname}`);
         }
-      });
+        const imageId = parseInt(imageIdMatch[1], 10);
+        if (imageId < 1 || imageId > 4) {
+          throw new Error(`Invalid image_id: ${imageId}. Must be 1 to 4`);
+        }
 
-      res.status(200).json({ message: "Image uploaded and URL stored successfully", imageurl: imageUrl });
-    } else {
-      res.status(500).json({ error: "Failed to insert data into ntid_image_url table" });
+        // Upload to S3
+        const s3FileKey = await uploadFileToS3(file);
+        const imageUrl = `profilePhotos/${s3FileKey}`;
+
+        // Insert into images table
+        const insertImageQuery = `INSERT INTO images (old_imei, image_type_id, image_url, ntid) VALUES (?, ?, ?, ?)`;
+        const [insertResult] = await connection.query(insertImageQuery, [
+          old_imei,
+          imageId,
+          imageUrl,
+          ntid,
+        ]);
+
+        if (insertResult.affectedRows !== 1) {
+          throw new Error(`Failed to insert image URL for file: ${file.originalname}`);
+        }
+
+        imageUrls.push({ image_id: imageId, image_url: imageUrl });
+        uploadedFiles.push(file.path);
+      }
+
+      
+
+      // Commit transaction
+      await connection.commit();
+
+      // Delete uploaded files
+      await Promise.all(
+        uploadedFiles.map(async (filePath) => {
+          try {
+            await fs.unlink(filePath);
+            console.log(`File deleted: ${filePath}`);
+          } catch (err) {
+            console.error(`Error deleting file ${filePath}:`, err);
+          }
+        })
+      );
+
+      res.status(200).json({
+        message: 'Files uploaded and data stored successfully',
+        image_urls: imageUrls,
+        csv_processed: csvFiles.length > 0,
+      });
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
     }
   } catch (error) {
-    console.error("Error uploading image:", error);
-    res.status(500).json({ error: "An error occurred while uploading the image" });
+    console.error('Error processing files:', error);
+    res.status(500).json({ error: 'An error occurred while processing files' });
   }
 };
 

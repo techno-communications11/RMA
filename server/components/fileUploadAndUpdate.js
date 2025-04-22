@@ -51,28 +51,28 @@ const fileUploadAndUpdate = async (req, res) => {
 // Function to update data in the database
 const updateDataInDB = async (data) => {
   const checkQuery = `
-    SELECT imageurl
-    FROM ntid_image_url
-    WHERE serial = ?
+    SELECT image_url
+    FROM images
+    WHERE old_imei = ?
   `;
   const duplicateCheckQuery = `
     SELECT *
-    FROM rma_upload_data
-    WHERE serial = ? 
+    FROM tracking_details
+    WHERE old_imei = ? 
   `;
   const insertQuery = `
-    INSERT INTO rma_upload_data (RMADate, RMANumber, UPSTrackingNumber, serial)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO tracking_details ( ups_tracking_number, old_imei)
+    VALUES (?, ?)
   `;
 
   try {
     await db.query("START TRANSACTION");
 
     for (const row of data) {
-      const { serial, RMADate, RMANumber, UPSTrackingNumber } = row;
+      const { old_imei,  ups_tracking_number } = row;
 
       // Ensure required fields are not missing
-      if (!serial || !RMADate || !RMANumber || !UPSTrackingNumber) {
+      if (!old_imei ||  !ups_tracking_number) {
         console.warn(`Missing required fields for row: ${JSON.stringify(row)}. Skipping.`);
         continue;
       }
@@ -80,42 +80,42 @@ const updateDataInDB = async (data) => {
       // Normalize the date format
       const normalizedDate = moment(RMADate, ["MM/DD/YY", "M/D/YY"]).format("YYYY-MM-DD");
       if (!moment(normalizedDate, "YYYY-MM-DD", true).isValid()) {
-        console.warn(`Invalid date format for serial "${serial}". Skipping.`);
+        console.warn(`Invalid date format for old_imei "${old_imei}". Skipping.`);
         continue;
       }
 
-      // Check if serial exists and has a non-null imageURL
-      const [checkResult] = await db.query(checkQuery, [serial]);
+      // Check if old_imei exists and has a non-null image_URL
+      const [checkResult] = await db.query(checkQuery, [old_imei]);
       if (checkResult.length === 0) {
-        console.warn(`Serial "${serial}" does not exist in the database. Skipping.`);
+        console.warn(`old_imei "${old_imei}" does not exist in the database. Skipping.`);
         continue;
       }
 
-      const { imageurl } = checkResult[0];
-      if (!imageurl) {
-        console.warn(`Serial "${serial}" exists but does not have a valid imageurl. Skipping.`);
+      const { image_url } = checkResult[0];
+      if (!image_url) {
+        console.warn(`old_imei "${old_imei}" exists but does not have a valid image_url. Skipping.`);
         continue;
       }
 
       // Check for duplicate entry in rma_upload_data
-      const [duplicateCheck] = await db.query(duplicateCheckQuery, [serial]);
+      const [duplicateCheck] = await db.query(duplicateCheckQuery, [old_imei]);
       if (duplicateCheck.length > 0) {
-        console.log(`Entry for serial "${serial}" and RMANumber "${RMANumber}" already exists. Skipping.`);
+        console.log(`Entry for old_imei "${old_imei}" already exists. Skipping.`);
         continue;
       }
 
       // Insert data into the database
       const [insertResult] = await db.query(insertQuery, [
         normalizedDate,
-        RMANumber,
-        UPSTrackingNumber,
-        serial,
+        // RMANumber,
+        ups_tracking_number,
+        old_imei,
       ]);
 
       if (insertResult.affectedRows > 0) {
-        console.log(`Data inserted for serial "${serial}".`);
+        console.log(`Data inserted for old_imei "${old_imei}".`);
       } else {
-        console.warn(`Failed to insert data for serial "${serial}".`);
+        console.warn(`Failed to insert data for old_imei "${old_imei}".`);
       }
     }
 

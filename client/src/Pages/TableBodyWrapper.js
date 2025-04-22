@@ -1,43 +1,51 @@
-// src/components/TableBodyWrapper.jsx
-import React from 'react';
-import { Table } from 'react-bootstrap';
-import { useUserContext } from '../Components/Context/MyContext';
-import LoadingSpinner from '../Components/Messages/LoadingSpinner';
-import TableHeader from '../Components/Tables/TableHeader';
-import TableRow from '../Components/Tables/TableRow';
+import React from "react";
+import { Table } from "react-bootstrap";
+import { useUserContext } from "../Components/Context/MyContext";
+import LoadingSpinner from "../Components/Messages/LoadingSpinner";
+import TableHeader from "../Components/Tables/TableHeader";
+import TableRow from "../Components/Tables/TableRow";
+import RMA_Columns from "../Constants/RMA_Columns.js";
+import XBM_Columns from "../Constants/XBM_Columns.js";
 
-const TableBody = ({
+const TableBodyWrapper = ({
   filteredData,
   handleNtidChange,
   ntid,
   setModalData,
-  setSerial,
+  setOld_imei,
   loading,
 }) => {
   const { userData } = useUserContext();
   const role = userData.role;
-   
+  const path = window.location.pathname;
+
+  const getColumns = () => {
+    if (path.includes("xbmpage")) return XBM_Columns;
+    if (path.includes("tradeinpage")) return XBM_Columns;
+    return RMA_Columns;
+  };
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
+
   return (
-    <div className="" style={{ maxHeight: '400px', overflowX: 'auto' }}>
-      <Table className="table table-hover table-striped ">
-        <TableHeader role={role} /> 
-        
+    <div style={{ maxHeight: "400px", overflowX: "auto" }}>
+      <Table className="table table-hover table-striped">
+        <TableHeader role={role} columns={getColumns()} />
         <tbody className="text-center">
-          {filteredData.map((row, index) => (
+          {filteredData.map((row) => (
             <TableRow
-              key={index}
+              key={row.id} // Use row.id as the key
               row={row}
-              index={index}
+              index={row.id} // Pass row.id as the index (if needed)
               role={role}
               ntid={ntid}
               handleNtidChange={handleNtidChange}
               setModalData={setModalData}
-              setSerial={setSerial}
+              setOld_imei={setOld_imei}
+              columns={getColumns()}
             />
           ))}
         </tbody>
@@ -46,4 +54,4 @@ const TableBody = ({
   );
 };
 
-export default TableBody;
+export default TableBodyWrapper;

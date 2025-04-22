@@ -1,0 +1,152 @@
+Market,store_id,store_name,employee_name,refund_label_type,sold_date,ntid,new_exchange_imei,description,old_imei,tracking_details,shipping_status
+Los Angeles,70850316,3992 N Sierra Way Ste A,SAM,Kumar,1/1/2025 0:22,RMA241231071,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356610174352373,1Z1X298A0390643783,ReceivedInWarehouse
+Los Angeles,70850316,3992 N Sierra Way Ste A,SAM,Kumar,1/1/2025 0:26,RMA241231072,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356610174352332,1Z1X298A0390811190,ReceivedInWarehouse
+Dallas,70832464,2601 E Lancaster Ave,SAM,Kumar,1/1/2025 1:03,RMA241231074,MOT XT2419-1_UT,Moto G Stylus 5G Beige 128Gb,350512702563750,1Z1X298A0391718218,ReceivedInWarehouse
+Memphis,70832509,3633 Hickory Hill Rd,Master,Dealer,1/1/2025 1:17,RMA241231075,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550071558266,1Z1X298A0391849827,ReceivedInWarehouse
+Nashville Knoxville,70851753,932 Richards Rd,Master,Dealer,1/1/2025 1:58,RMA241231076,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550075807529,1Z1X298A0395622082,ReceivedInWarehouse
+Memphis,70832503,1411 Goodman Rd W Ste 12,Account,Default,1/1/2025 15:10,RMA250101002,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",355030766842106,1Z1X298A0395507699,ReceivedInWarehouse
+Memphis,70832503,1411 Goodman Rd W Ste 12,Account,Default,1/1/2025 15:10,RMA250101002,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",352096695174643,1Z1X298A0395507699,ReceivedInWarehouse
+Memphis,70832503,1411 Goodman Rd W Ste 12,Account,Default,1/1/2025 15:10,RMA250101002,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",354543514351385,1Z1X298A0395507699,Submitted
+Memphis,70832503,1411 Goodman Rd W Ste 12,Account,Default,1/1/2025 15:10,RMA250101002,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",356985632145698,1Z1X298A0395507699,Submitted
+Memphis,70832502,4082 Elvis Presley Blvd,4082 ELVIS PRESLEY,Default,1/1/2025 15:41,RMA25010100G,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",357815985077478,1Z1X298A0396540132,ReceivedInWarehouse
+Memphis,70832502,4082 Elvis Presley Blvd,4082 ELVIS PRESLEY,Default,1/1/2025 15:41,RMA25010100G,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",862503074953365,1Z1X298A0396540132,ReceivedInWarehouse
+Memphis,70832502,4082 Elvis Presley Blvd,4082 ELVIS PRESLEY,Default,1/1/2025 15:41,RMA25010100G,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",367885985077473,1Z1X298A0396540132,Submitted
+Memphis,70832529,215 E Shelby Dr,Account,Default,1/1/2025 15:52,RMA25010100J,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",866966052845794,1Z1X298A0397670740,ReceivedInWarehouse
+Memphis,70832529,215 E Shelby Dr,Account,Default,1/1/2025 15:52,RMA25010100J,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",359282401053385,1Z1X298A0397670740,ReceivedInWarehouse
+San Francisco,70851231,"2200 Eastridge Loop, suite 2041",SAM,Kumar,1/1/2025 18:30,RMA250101019,AP A2726-AWWS_UT,Apple Watch SE2 Alum/White White Sportband Small 40mm,358621339645211,1Z1X298A0396644280,ReceivedInWarehouse
+Houston,70832604,7404 Airline Dr Ste D,Account,Default,1/1/2025 19:31,RMA25010101G,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,356540880432666,1Z1X298A0394199300,ReceivedInWarehouse
+Houston,70832604,7404 Airline Dr Ste D,Account,Default,1/1/2025 19:35,RMA25010101L,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550076169366,1Z1X298A0392912541,ReceivedInWarehouse
+Phoenix,70848853,1326 E Florence Blvd,SAM,Kumar,1/1/2025 19:47,RMA25010101S,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550072269525,1Z1X298A0391764409,ReceivedInWarehouse
+Los Angeles,70850321,2094 W Redlands Blvd Suite K,SAM,Kumar,1/1/2025 19:57,RMA25010101U,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550072535883,1Z1X298A0391062220,ReceivedInWarehouse
+Dallas,70832693,4059 Hemphill Street,SAM,Kumar,1/1/2025 19:58,RMA25010101V,ALC 9137W_UT,Alcatel Tablet 8 LE Gray 32Gb,16533009662083,1Z1X298A0394563237,ReceivedInWarehouse
+Houston,70832630,4122 Telephone Rd Ste C,Master,Dealer,1/1/2025 20:18,RMA250101022,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",862503077926061,1Z1X298A0398572943,ReceivedInWarehouse
+Houston,70832630,4122 Telephone Rd Ste C,Master,Dealer,1/1/2025 20:21,RMA250101023,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",863550071523666,1Z1X298A0399232559,ReceivedInWarehouse
+Houston,70832621,1207 Wayside Dr,Master,Dealer,1/1/2025 20:27,RMA250101025,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",862503078665544,1Z1X298A0390469507,ReceivedInWarehouse
+Memphis,70832678,450 Stateline Rd Unit D,Master,Dealer,1/1/2025 20:32,RMA250101026,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,358551722655834,1Z1X298A0391813712,ReceivedInWarehouse
+Houston,70832572,5627 Aldine Bender Rd Ste 8,Master,Dealer,1/1/2025 20:44,RMA25010102B,SAG FAST5688W,Sagemcom 5G Gateway Black,359509846337852,1Z1X298A0399505380,ReceivedInWarehouse
+Dallas,70832464,2601 E Lancaster Ave,SAM,Kumar,1/1/2025 20:45,RMA25010102D,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,862503072721467,1Z1X298A0399360992,ReceivedInWarehouse
+Houston,70832599,320 W Rankin Rd,Master,Dealer,1/1/2025 20:46,RMA25010102E,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,353335932281044,1Z1X298A0394215765,ReceivedInWarehouse
+Dallas,70832464,2601 E Lancaster Ave,SAM,Kumar,1/1/2025 20:51,RMA25010102H,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,862503077887909,1Z1X298A0395621823,ReceivedInWarehouse
+Houston,70832573,3103 FM 1960 Rd W Ste R,Master,Dealer,1/1/2025 20:53,RMA25010102K,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,353335933469275,1Z1X298A0396374045,ReceivedInWarehouse
+Houston,70832638,3219 Hillcroft Street,Master,Dealer,1/1/2025 21:10,RMA25010102U,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",354239342747074,1Z1X298A0397112094,ReceivedInWarehouse
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:22,RMA25010102X,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",353868596133671,1Z1X298A0399050317,Submitted
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:22,RMA25010102X,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",352096692096466,1Z1X298A0399050317,Submitted
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:22,RMA25010102X,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",16441000457943,1Z1X298A0399050317,Submitted
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:22,RMA25010102X,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",359687219416840,1Z1X298A0399050317,ReceivedInWarehouse
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:22,RMA25010102X,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",353868590708262,1Z1X298A0399050317,Submitted
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:22,RMA25010102X,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",353868594053483,1Z1X298A0399050317,Submitted
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:28,RMA250101030,ANS HPPL62A_UT,ANS Tabasco Black 8Gb,358371951952665,1Z1X298A0391708425,ReceivedInWarehouse
+Los Angeles,70851435,10721 Atlantic Ave,SAM,Kumar,1/1/2025 21:39,RMA250101032,SAM A156U-BLU128_UT,Samsung Galaxy A15 5G Blue 128Gb,356408519586056,1Z1X298A0391835841,ReceivedInWarehouse
+Memphis,70832679,"1948 S 3RD ST,STE 102",Master,Dealer,1/1/2025 21:39,RMA250101033,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,862503070580022,1Z1X298A0399075149,ReceivedInWarehouse
+Los Angeles,70851422,1130 S Bristol St,SAM,Kumar,1/1/2025 21:48,RMA250101036,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",35386859425744,1Z1X298A0395003367,Submitted
+Los Angeles,70851767,2400 Saviers Rd Ste 104,SAM,Kumar,1/1/2025 21:55,RMA250101039,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,862503073179103,1Z1X298A0390243483,Submitted
+Los Angeles,70851433,9070 Van Nuys,SAM,Kumar,1/1/2025 22:28,RMA25010103E,MOT XT2271-5_UT,Motorola G-Play Blue 32Gb,353868594917935,1Z1X298A0399927586,ReceivedInWarehouse
+Los Angeles,70851433,9070 Van Nuys,SAM,Kumar,1/1/2025 22:33,RMA25010103F,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356645501649950,1Z1X298A0392041527,ReceivedInWarehouse
+Los Angeles,70851428,2547 W McFadden Ave Ste B,SAM,Kumar,1/1/2025 22:45,RMA25010103G,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356610174248936,1Z1X298A0399763191,ReceivedInWarehouse
+Memphis,70832686,2990 Lamar Ave,Master,Dealer,1/1/2025 22:48,RMA25010103H,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",353335931467248,1Z1X298A0391084537,Submitted
+Memphis,70832513,2246 Lamar Ave,Account,Default,1/1/2025 23:49,RMA25010103S,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",350703801327599,1Z1X298A0396676246,Submitted
+Memphis,70832513,2246 Lamar Ave,Account,Default,1/1/2025 23:49,RMA25010103S,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",16441002040887,1Z1X298A0396676246,ReceivedInWarehouse
+Memphis,70832513,2246 Lamar Ave,Account,Default,1/1/2025 23:49,RMA25010103S,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",354716038375617,1Z1X298A0396676246,Submitted
+Memphis,70832513,2246 Lamar Ave,Account,Default,1/1/2025 23:49,RMA25010103S,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",358458160520993,1Z1X298A0396676246,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:11,RMA25010103V,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",16441002280913,1Z1X298A0395584463,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:11,RMA25010103V,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",863550076130848,1Z1X298A0395584463,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:11,RMA25010103V,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",353283325235294,1Z1X298A0395584463,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:11,RMA25010103V,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550076119841,1Z1X298A0395584463,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:11,RMA25010103V,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550076121680,1Z1X298A0395584463,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:11,RMA25010103V,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073062549,1Z1X298A0395584463,ReceivedInWarehouse
+Raleigh Durham,70832536,2301 Holloway St,Account,Default,1/2/2025 0:14,RMA25010103W,SAG FAST5688W,Sagemcom 5G Gateway Black,359509841145367,1Z1X298A0396612073,ReceivedInWarehouse
+Dallas,70846808,818 E. Abram St,Account,Default,1/2/2025 0:17,RMA25010103Y,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",354802101072040,1Z1X298A0397488680,ReceivedInWarehouse
+Los Angeles,70851768,217 W Pleasant Valley Rd,SAM,Kumar,1/2/2025 0:20,RMA25010103Z,ARC KVD21,Arcadyan Home Internet Gateway Black,863289055751791,1Z1X298A0390619998,ReceivedInWarehouse
+San Francisco,70851676,1651 Tennessee St,SAM,Kumar,1/2/2025 0:39,RMA250101044,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356645501576252,1Z1X298A0395188909,Submitted
+Memphis,70832677,3421 Austin Peay Highway,Account,Default,1/2/2025 0:50,RMA250101047,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",355819213242815,1Z1X298A0395212515,ReceivedInWarehouse
+Memphis,70832509,3633 Hickory Hill Rd,Account,Default,1/2/2025 1:00,RMA250101048,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",16000002325050,1Z1X298A0392789855,ReceivedInWarehouse
+Memphis,70832509,3633 Hickory Hill Rd,Account,Default,1/2/2025 1:00,RMA250101048,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",990018935990345,1Z1X298A0392789855,ReceivedInWarehouse
+Memphis,70832509,3633 Hickory Hill Rd,Account,Default,1/2/2025 1:00,RMA250101048,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",355458541757986,1Z1X298A0392789855,ReceivedInWarehouse
+Phoenix,70848856,6430 W GLENDALE AVE,SAM,Kumar,1/2/2025 1:17,RMA250101049,ARC KVD21,Arcadyan Home Internet Gateway Black,861035068643000,1Z1X298A0390263069,ReceivedInWarehouse
+Dallas,70832703,6109 S Cooper St Ste 151,SAM,Kumar,1/2/2025 1:18,RMA25010104A,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356645501898656,1Z1X298A0396485121,ReceivedInWarehouse
+Memphis,70832686,2990 Lamar Ave,Master,Dealer,1/2/2025 1:27,RMA25010104E,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356645504886070,1Z1X298A0393017687,ReceivedInWarehouse
+Memphis,70832680,2240 Elvis Presley Blvd,Account,Default,1/2/2025 14:55,RMA25010200T,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",359687219138014,1Z1X298A0391798730,ReceivedInWarehouse
+Memphis,70832680,2240 Elvis Presley Blvd,Account,Default,1/2/2025 14:55,RMA25010200T,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",356408513324066,1Z1X298A0391798730,ReceivedInWarehouse
+Memphis,70847246,2664 N Hollywood St,Account,Default,1/2/2025 15:17,RMA250102013,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,862503077083988,1Z1X298A0391314789,ReceivedInWarehouse
+Memphis,70847246,2664 N Hollywood St,Account,Default,1/2/2025 15:17,RMA250102013,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",357815987915063,1Z1X298A0391314789,ReceivedInWarehouse
+Memphis,70832503,1411 Goodman Rd W Ste 12,Account,Default,1/2/2025 17:19,RMA25010203Q,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",356985632455526,1Z1X298A0396761359,Submitted
+Memphis,70832503,1411 Goodman Rd W Ste 12,Account,Default,1/2/2025 17:19,RMA25010203Q,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",356896465463321,1Z1X298A0396761359,Submitted
+Dallas,70846809,5010 S. Hulen,Account,Default,1/2/2025 17:22,RMA25010203S,WIN TMRV065G_UT,Wingtech REVVL 6X 5G Gray 128Gb,864947062997355,1Z1X298A0393605612,ReceivedInWarehouse
+Dallas,70846809,5010 S. Hulen,Account,Default,1/2/2025 17:26,RMA25010203W,ALC T702W_UT,Alcatel 50 XL 5G Gray 128Gb,16519002641984,1Z1X298A0392534236,ReceivedInWarehouse
+Dallas,70846809,5010 S. Hulen,Account,Default,1/2/2025 17:28,RMA25010203X,SAM A546U_UT,Samsung A54 5G Black 128Gb,353454194553915,1Z1X298A0394724643,Submitted
+Los Angeles,70851502,27574 Sierra Hwy,SAM,Kumar,1/2/2025 17:52,RMA25010204B,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,356540885822424,1Z1X298A0391501335,ReceivedInWarehouse
+Dallas,70832691,18110 Midway Rd Ste 130,Account,Default,1/2/2025 17:57,RMA25010204F,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550076136506,1Z1X298A0395182843,ReceivedInWarehouse
+Memphis,70847246,2664 N Hollywood St,Account,Default,1/2/2025 17:57,RMA25010204G,SAG FAST5688W,Sagemcom 5G Gateway Black,359509845933123,1Z1X298A0399752452,ReceivedInWarehouse
+Houston,70832634,13535 S Post Oak Rd Ste D,Master,Dealer,1/2/2025 17:58,RMA25010204H,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",358686419681071,1Z1X298A0393606764,ReceivedInWarehouse
+Memphis,70832680,2240 Elvis Presley Blvd,Account,Default,1/2/2025 18:16,RMA25010204T,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",863550074266222,1Z1X298A0395755288,ReceivedInWarehouse
+Houston,70832607,25192 I-45 N Ste C100,Master,Dealer,1/2/2025 18:29,RMA250102054,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,862503076887728,1Z1X298A0394390656,ReceivedInWarehouse
+Denver,70832500,582 S Chambers Rd,Account,Default,1/2/2025 18:36,RMA25010205B,SAM X218U_UT,Samsung Galaxy Tab A9+ 5G Gray 64Gb,354239343240970,1Z1X298A0392850706,ReceivedInWarehouse
+Memphis,70832514,1101 S Bellevue Blvd,Master,Dealer,1/2/2025 18:40,RMA25010205L,SAM A156U-BLU64_UT,Samsung Galaxy A15 5G Blue 64Gb,352415370631198,1Z1X298A0397176605,ReceivedInWarehouse
+Dallas,70846809,5010 S. Hulen,Account,Default,1/2/2025 19:08,RMA25010206A,SAM A156U-BLU64_UT,Samsung Galaxy A15 5G Blue 64Gb,355030769952175,1Z1X298A0395861314,ReceivedInWarehouse
+Denver,70832490,7525 E Iliff Ave,Account,Default,1/2/2025 20:09,RMA250102078,MOT XT2417-1_UT,Moto G 5G Green 128Gb,357891278271912,1Z1X298A0395716856,ReceivedInWarehouse
+Nashville Knoxville,70848930,121B SE Broad St,Master,Dealer,1/2/2025 20:27,RMA25010207G,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",359282400342052,1Z1X298A0395023514,ReceivedInWarehouse
+Memphis,70832523,376 N Cleveland St Ste 102,Account,Default,1/2/2025 20:34,RMA25010207K,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",356408511227477,1Z1X298A0397717735,Submitted
+Memphis,70832523,376 N Cleveland St Ste 102,Account,Default,1/2/2025 20:34,RMA25010207K,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",357690705051164,1Z1X298A0397717735,Submitted
+Memphis,70832523,376 N Cleveland St Ste 102,Account,Default,1/2/2025 20:34,RMA25010207K,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",353868592479458,1Z1X298A0397717735,ReceivedInWarehouse
+Memphis,70832523,376 N Cleveland St Ste 102,Account,Default,1/2/2025 20:34,RMA25010207K,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073411985,1Z1X298A0397717735,ReceivedInWarehouse
+Memphis,70832523,376 N Cleveland St Ste 102,Account,Default,1/2/2025 20:34,RMA25010207K,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550072796220,1Z1X298A0397717735,ReceivedInWarehouse
+Phoenix,70848858,4010 N 83rd Ave Suite 103,SAM,Kumar,1/2/2025 20:38,RMA25010207M,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356610174707618,1Z1X298A0390190870,ReceivedInWarehouse
+ElPaso LasCruces,70849384,125 N Glenwood St Ste B,Master,Dealer,1/2/2025 21:58,RMA25010208Z,SAG FAST5688W,Sagemcom 5G Gateway Black,350596537125414,1Z1X298A0393717082,ReceivedInWarehouse
+Memphis,70832506,4673 Elvis Presley Blvd Ste 103,Master,Dealer,1/2/2025 22:15,RMA250102098,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",863550076092840,1Z1X298A0398159426,Submitted
+Memphis,70832506,4673 Elvis Presley Blvd Ste 103,Master,Dealer,1/2/2025 22:15,RMA250102098,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",35295824425834,1Z1X298A0398159426,ReceivedInWarehouse
+Sacramento,70850176,7235 Franklin Blvd,SAM,Kumar,1/2/2025 22:16,RMA250102099,ALC 9137W_UT,Alcatel Tablet 8 LE Gray 32Gb,16626000382667,1Z1X298A0396651030,ReceivedInWarehouse
+Memphis,70832677,3421 Austin Peay Highway,Account,Default,1/2/2025 22:16,RMA25010209A,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",862503075618207,1Z1X298A0397591648,ReceivedInWarehouse
+Nashville Knoxville,70819196,3928 Lebanon Pike,Master,Dealer,1/2/2025 22:17,RMA25010209D,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,358551722183936,1Z1X298A0391000171,ReceivedInWarehouse
+Memphis,70832524,1935 Saint John Ave,Account,Default,1/2/2025 22:22,RMA25010209G,SAM A156U-BLU64_UT,Samsung Galaxy A15 5G Blue 64Gb,352415370004032,1Z1X298A0398219861,ReceivedInWarehouse
+Memphis,70832524,1935 Saint John Ave,Account,Default,1/2/2025 22:22,RMA25010209G,SAG FAST5688W,Sagemcom 5G Gateway Black,359509847388185,1Z1X298A0398219861,ReceivedInWarehouse
+Memphis,70832524,1935 Saint John Ave,Account,Default,1/2/2025 22:22,RMA25010209G,ARC KVD21,Arcadyan Home Internet Gateway Black,861035069721060,1Z1X298A0398219861,ReceivedInWarehouse
+Los Angeles,70850318,4594 University Pkwy Ste B,SAM,Kumar,1/2/2025 22:31,RMA25010209K,HMD TA-1584_UT,Nokia C210 Gray 32Gb,354668352645937,1Z1X298A0397529699,ReceivedInWarehouse
+Memphis,70847247,8043 US HIGHWAY 51 N,Master,Dealer,1/2/2025 22:38,RMA25010209P,SAM X218U_UT,Samsung Galaxy Tab A9+ 5G Gray 64Gb,354274907775103,1Z1X298A0392466408,ReceivedInWarehouse
+Los Angeles,70851773,9434 TELEPHONE RD,SAM,Kumar,1/2/2025 22:45,RMA25010209T,SAG FAST5688W,Sagemcom 5G Gateway Black,359509843971711,1Z1X298A0394435643,ReceivedInWarehouse
+Memphis,70847247,8043 US HIGHWAY 51 N,Master,Dealer,1/2/2025 22:48,RMA25010209U,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",352096693223176,1Z1X298A0397762132,ReceivedInWarehouse
+Memphis,70847247,8043 US HIGHWAY 51 N,Master,Dealer,1/2/2025 22:50,RMA25010209V,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",351990805782866,1Z1X298A0398692742,ReceivedInWarehouse
+Nashville Knoxville,70848931,1312 Memorial Blvd Ste F,Master,Dealer,1/2/2025 22:58,RMA2501020A0,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",867188063100692,1Z1X298A0398905182,ReceivedInWarehouse
+Los Angeles,70851432,2118 W 7th Street,SAM,Kumar,1/2/2025 23:18,RMA2501020A9,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073444366,1Z1X298A0392876742,ReceivedInWarehouse
+Dallas,70832701,2737 8th Ave,SAM,Kumar,1/2/2025 23:25,RMA2501020AE,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550070193180,1Z1X298A0396179015,ReceivedInWarehouse
+Memphis,70832513,2246 Lamar Ave,Account,Default,1/2/2025 23:33,RMA2501020AL,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550075098921,1Z1X298A0396282064,ReceivedInWarehouse
+Memphis,70832681,7444 Winchester Rd Ste 103,Account,Default,1/2/2025 23:41,RMA2501020AQ,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",357713911461868,1Z1X298A0392616602,ReceivedInWarehouse
+Denver,70832490,7525 E Iliff Ave,Account,Default,1/2/2025 23:43,RMA2501020AT,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",357299880446957,1Z1X298A0392234819,Submitted
+Denver,70832490,7525 E Iliff Ave,Account,Default,1/3/2025 0:10,RMA2501020B1,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",355120937784012,1Z1X298A0399684339,ReceivedInWarehouse
+San Francisco,70851697,1490 FILLMORE ST,SAM,Kumar,1/3/2025 0:12,RMA2501020B2,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550075769281,1Z1X298A0395594943,ReceivedInWarehouse
+Los Angeles,70851421,13191 HARBOR BLVD,SAM,Kumar,1/3/2025 0:20,RMA2501020B5,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,356540882974079,1Z1X298A0392185480,ReceivedInWarehouse
+San Francisco,70850681,4730 Mission St,SAM,Kumar,1/3/2025 0:28,RMA2501020B7,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073122483,1Z1X298A0394401705,ReceivedInWarehouse
+Houston,70832576,406 S Frazier St Ste A,Master,Dealer,1/3/2025 0:38,RMA2501020B8,ARC KVD21,Arcadyan Home Internet Gateway Black,861857062030540,1Z1X298A0396054551,ReceivedInWarehouse
+Houston,70832573,3103 FM 1960 Rd W Ste R,Master,Dealer,1/3/2025 0:42,RMA2501020BB,AP A2482-BLK128_UT,Apple iPhone 13 Black 128Gb,355883348174020,1Z1X298A0395163168,ReceivedInWarehouse
+Houston,70832579,5808 Bellfort St,Master,Dealer,1/3/2025 0:50,RMA2501020BG,ARC KVD21,Arcadyan Home Internet Gateway Black,864644065808164,1Z1X298A0390103526,ReceivedInWarehouse
+Sacramento,70850172,1108 Waterloo Rd Ste 4,Account,Default,1/3/2025 1:05,RMA2501020BP,SAG FAST5688W,Sagemcom 5G Gateway Black,359509848018013,1Z1X298A0390555968,ReceivedInWarehouse
+Nashville Knoxville,70851752,3405 Gallatin Pike Ste C,Master,Dealer,1/3/2025 1:21,RMA2501020BR,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",860325065334609,1Z1X298A0390402588,ReceivedInWarehouse
+Nashville Knoxville,70851752,3405 Gallatin Pike Ste C,Master,Dealer,1/3/2025 1:21,RMA2501020BR,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",350545466382124,1Z1X298A0390402588,ReceivedInWarehouse
+Memphis,70832509,3633 Hickory Hill Rd,Account,Default,1/3/2025 1:28,RMA2501020BT,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",359687216467366,1Z1X298A0390326803,Submitted
+Dallas,70832470,903 S Main St,SAM,Kumar,1/3/2025 1:31,RMA2501020BU,ARC KVD21,Arcadyan Home Internet Gateway Black,861857065901945,1Z1X298A0392533013,ReceivedInWarehouse
+Houston,70832633,8416 Broadway St Ste 110,Master,Dealer,1/3/2025 1:55,RMA2501020C0,SAM A356U_UT,Samsung Galaxy A35 5G Blue 128Gb,351782255773143,1Z1X298A0390815678,ReceivedInWarehouse
+Phoenix,70849455,1255 W Main Street,SAM,Kumar,1/3/2025 2:14,RMA2501020C6,SAM X218U_UT,Samsung Galaxy Tab A9+ 5G Gray 64Gb,354274908277497,1Z1X298A0394792114,ReceivedInWarehouse
+Phoenix,70849388,5834 S Central Ave Ste A,SAM,Kumar,1/3/2025 2:21,RMA2501020C7,ARC KVD21,Arcadyan Home Internet Gateway Black,863289052319717,1Z1X298A0398791877,Submitted
+Phoenix,70849388,5834 S Central Ave Ste A,SAM,Kumar,1/3/2025 2:24,RMA2501020C8,ARC KVD21,Arcadyan Home Internet Gateway Black,861035066120662,1Z1X298A0396488486,ReceivedInWarehouse
+Denver,70848705,590 Dayton St,Account,Default,1/3/2025 2:42,RMA2501020CC,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356645501205050,1Z1X298A0396134090,ReceivedInWarehouse
+Denver,70832485,4391 Federal Blvd,Mohsan,Saeed,1/3/2025 2:48,RMA2501020CD,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073151425,1Z1X298A0396828706,ReceivedInWarehouse
+Denver,70832485,4391 Federal Blvd,Mohsan,Saeed,1/3/2025 2:51,RMA2501020CF,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550071590921,1Z1X298A0397764925,ReceivedInWarehouse
+Denver,70832485,4391 Federal Blvd,Mohsan,Saeed,1/3/2025 2:54,RMA2501020CG,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073151987,1Z1X298A0390726952,ReceivedInWarehouse
+Denver,70832485,4391 Federal Blvd,Mohsan,Saeed,1/3/2025 3:00,RMA2501020CL,WIN TMRV075G_UT,Wingtech REVVL 7 5G Gray 128Gb,863550073146862,1Z1X298A0394656780,ReceivedInWarehouse
+Memphis,70832678,450 Stateline Rd Unit D,Account,Default,1/3/2025 15:04,RMA25010300R,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",863892053082919,1Z1X298A0392670982,ReceivedInWarehouse
+Houston,70832635,5807 Lyons Ave,Master,Dealer,1/3/2025 16:25,RMA25010301R,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",352310720532271,1Z1X298A0390649134,ReceivedInWarehouse
+Houston,70832580,10307 Cullen Blvd Ste C,Master,Dealer,1/3/2025 16:29,RMA25010301S,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",35523055079551,1Z1X298A0397787393,ReceivedInWarehouse
+Nashville Knoxville,70848930,121B SE Broad St,Master,Dealer,1/3/2025 16:52,RMA250103026,SAM S711U-GRY128_UT,Samsung Galaxy S23 Fan Edition 5G Gray 128Gb,355975561255443,1Z1X298A0399876275,ReceivedInWarehouse
+Houston,70832594,113 1st St W Ste B,Master,Dealer,1/3/2025 17:01,RMA25010302F,ARC KVD21,Arcadyan Home Internet Gateway Black,864644060244340,1Z1X298A0390476231,ReceivedInWarehouse
+Denver,70832500,582 S Chambers Rd,Account,Default,1/3/2025 17:25,RMA250103030,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",357815989213723,1Z1X298A0398262037,ReceivedInWarehouse
+Houston,70832633,8416 Broadway St Ste 110,Master,Dealer,1/3/2025 17:25,RMA250103031,SAM A156U-BLU64_UT,Samsung Galaxy A15 5G Blue 64Gb,355030767900838,1Z1X298A0394408324,ReceivedInWarehouse
+Denver,70832500,582 S Chambers Rd,Account,Default,1/3/2025 17:27,RMA250103033,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",351594954171804,1Z1X298A0393243334,ReceivedInWarehouse
+Houston,70832634,13535 S Post Oak Rd Ste D,Master,Dealer,1/3/2025 18:19,RMA25010303U,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",862503070802244,1Z1X298A0392197860,ReceivedInWarehouse
+San Francisco,70850790,231 San Benito St,Amanda,Moulton,1/3/2025 18:36,RMA250103048,MOT XT2417-1_UT,Moto G 5G Green 128Gb,356610172481497,1Z1X298A0390134529,ReceivedInWarehouse
+Memphis,70832506,4673 Elvis Presley Blvd Ste 103,Account,Default,1/3/2025 19:46,RMA25010305M,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",354298122987094,1Z1X298A0391220728,Submitted
+San Francisco,70851231,"2200 Eastridge Loop, suite 2041",SAM,Kumar,1/3/2025 19:48,RMA25010305P,SAM A156U-BLU128_UT,Samsung Galaxy A15 5G Blue 128Gb,353283324245864,1Z1X298A0399483314,ReceivedInWarehouse
+Houston,70832629,3341 Telephone Rd Ste 108,Master,Dealer,1/3/2025 20:00,RMA25010305U,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",862503070642046,1Z1X298A0391065165,Submitted
+Houston,70832604,7404 Airline Dr Ste D,Master,Dealer,1/3/2025 20:04,RMA25010305Z,MOT XT2417-1_UT,Moto G 5G Green 128Gb,357891271105232,1Z1X298A0390455192,ReceivedInWarehouse
+Nashville Knoxville,70851756,3039 Brick Church Pike Ste A,Master,Dealer,1/3/2025 20:13,RMA250103061,TRADEIN,"Generic Trade-In - no carrier, mfr or model specified",354668350616880,1Z1X298A0398936363,ReceivedInWarehouse
+San Francisco,70851233,311 N Capitol Ave Ste F,SAM,Kumar,1/3/2025 20:24,RMA250103068,SAM R866U_UT,Samsung Galaxy Watch Fan Edition Black 40Mm,358724330423222,1Z1X298A0390482215,ReceivedInWarehouse
+Houston,70832598,12315 FM 1960,Master,Dealer,1/3/2025 20:40,RMA25010306K,MOT XT2419-1_UT,Moto G Stylus 5G Beige 128Gb,350512702890054,1Z1X298A0396538850,ReceivedInWarehouse
+Houston,70846800,5101 Bingle Rd,Master,Dealer,1/3/2025 20:52,RMA25010306W,AP A2172-BLK64,metroPCS iPhone 12 Black 64Gb,351440828243926,1Z1X298A0399921902,ReceivedInWarehouse

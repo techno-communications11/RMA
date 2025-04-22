@@ -1,21 +1,15 @@
-import React from 'react';
-import { BarChart3 } from 'lucide-react';
-import '../../Styles/DashboardHeader.css';
+import React from "react";
+import { FaStore } from "react-icons/fa";
 
-const DashboardHeader = ({ store,name}) => {
+const DashboardHeader = ({ store, name }) => {
   return (
-    <div className="header-section-1">
-      <div className="image-container-1">
-        <div className="content-overlay-1">
-          <BarChart3 className="text-white" size={32} />
-          <h2 className=" fw-bold text-white mb-2">{name}</h2>
-          {store && (
-            <p className="lead fw-bold text-white mb-0 small fs-6">
-              Current Store: {store}
-            </p>
-          )}
-        </div>
-      </div>
+    <div className="dashboard-header mb-4">
+      <h1 className="text-pink-600 fw-bold d-flex align-items-center">
+        <FaStore className="me-2" />
+        {name} 
+      </h1>
+      <h2 className="fw-bold text-primary"> Store: {store || "No Store Selected"}</h2>
+      <p className="text-muted fs-3">Welcome to your dashboard</p>
     </div>
   );
 };

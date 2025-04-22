@@ -1,36 +1,17 @@
-// src/components/TableHeader.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 
-
-const TableHeader = ({ role }) => {
-  const columns = [
-    { label: 'SINO' },
-    { label: 'Market' },
-    { label: 'storeid' },
-    { label: 'StoreName' },
-    { label: 'EmployeeID' },
-    { label: 'Invoice' },
-    { label: 'Serial' },
-    { label: 'ModelName' },
-    { label: 'Value' },
-    { label: 'RMADate' },
-    { label: 'RMANumber' },
-    { label: 'UPSTrackingNo' },
-    { label: 'Ntid', roles: ['user'] },
-    { label: 'Verify', roles:['user'] },
-    { label: 'Actions', roles: ['manager', 'admin'] },
-  ];
-
+const TableHeader = ({ role, columns }) => {
   return (
     <thead>
-      <tr className=" text-center">
+      <tr className="text-center">
         {columns.map((col, index) => {
           if (col.roles && !col.roles.includes(role)) return null;
           return (
             <th
-             className='small'
-              style={{backgroundColor:'#E10174',color:'#fff'}}
-              key={index}
+              className='small text-nowrap'
+              style={{ backgroundColor: '#E10174', color: '#fff' }}
+              key={col.field || index}
             >
               {col.label}
             </th>
@@ -41,6 +22,15 @@ const TableHeader = ({ role }) => {
   );
 };
 
+TableHeader.propTypes = {
+  role: PropTypes.string.isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      field: PropTypes.string,
+      roles: PropTypes.arrayOf(PropTypes.string),
+    })
+  ).isRequired,
+};
+
 export default TableHeader;
-
-

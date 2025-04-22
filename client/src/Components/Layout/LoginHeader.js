@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-// import * as S from "./Login.styles";
 
 export const LoginHeader = () => (
   <motion.h1

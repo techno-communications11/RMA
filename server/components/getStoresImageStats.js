@@ -5,14 +5,14 @@ const getMarketImageCounts = async (req, res) => {
     // console.log('Incoming request query:', req.query);
     try {
         const query = `
-            SELECT r.market, 
-                   r.createdat, 
-                   COUNT(CASE WHEN i.ImageURL IS NULL THEN 1 END) AS notUploaded, 
-                   COUNT(CASE WHEN i.ImageURL IS NOT NULL THEN 1 END) AS uploaded 
-            FROM rmadata r
-            LEFT JOIN ntid_image_url i ON r.serial = i.serial
-            GROUP BY r.market, r.createdat
-            ORDER BY r.createdat DESC;
+            SELECT r.market AS Market, 
+                   r.created_at as createdAt, 
+                   COUNT(CASE WHEN i.image_url IS NULL THEN 1 END) AS notUploaded, 
+                   COUNT(CASE WHEN i.image_url IS NOT NULL THEN 1 END) AS uploaded 
+            FROM rma_data r
+            LEFT JOIN images i ON r.old_imei = i.old_imei
+            GROUP BY r.market, r.created_at
+            ORDER BY r.created_at DESC;
         `;
         // console.log('Executing query:', query);
         const [results] = await db.execute(query);
@@ -36,15 +36,15 @@ const getStoresImageByMarket = async (req, res) => {
 
     try {
         const query = `
-            SELECT r.storename AS storeName, 
-                   r.createdat, 
-                   COUNT(CASE WHEN i.ImageURL IS NULL THEN 1 END) AS notUploaded, 
-                   COUNT(CASE WHEN i.ImageURL IS NOT NULL THEN 1 END) AS uploaded 
-            FROM rmadata r
-            LEFT JOIN ntid_image_url i ON r.serial = i.serial
+            SELECT r.store_name AS store_name, 
+                   r.created_at as createdAt, 
+                   COUNT(CASE WHEN i.image_url IS NULL THEN 1 END) AS notUploaded, 
+                   COUNT(CASE WHEN i.image_url IS NOT NULL THEN 1 END) AS uploaded 
+            FROM rma_data r
+            LEFT JOIN images i ON r.old_imei = i.old_imei
             WHERE r.market = ? 
-            GROUP BY r.storename, r.createdat
-            ORDER BY r.createdat DESC;
+            GROUP BY r.store_name, r.created_at
+            ORDER BY r.created_at DESC;
         `;
         // console.log('Executing query:', query);
         // console.log('Query parameters:', [market]);

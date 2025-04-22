@@ -4,11 +4,11 @@ const getMarketsData = async (req, res) => {
     try {
         // Query to get count of RMAs grouped by market and created date
         const getMarketsRmaStatsQuery = `
-            SELECT market, createdat, COUNT(*) AS totalRma
-            FROM rmadata
-            WHERE serial IS NOT NULL
-            GROUP BY market, createdat
-            ORDER BY createdat DESC;
+            SELECT market, created_at as createdAt, COUNT(*) AS totalRma
+            FROM rma_data
+            WHERE old_imei IS NOT NULL
+            GROUP BY market, created_at
+            ORDER BY created_at DESC;
         `;
 
         // Execute the query
@@ -18,7 +18,7 @@ const getMarketsData = async (req, res) => {
         // Transform the data to match your requirements
         const marketsData = markets.map((market) => ({
             marketName: market.market,
-            createdAt: market.createdat,
+            createdAt: market.created_at,
             totalRma: market.totalRma,
         }));
         // console.log('Transformed Markets Data:', marketsData);

@@ -1,9 +1,8 @@
-// src/components/TableRow.jsx
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import TableCell from '../Cells/TableCell';
 import NtidCell from '../Cells/NtidCell';
 import ActionCell from '../Cells/ActionCell';
-import AlertMessage from '../Messages/AlertMessage';
 import VerifyNtid from '../Cells/VerifyNtid';
 
 const TableRow = ({
@@ -12,60 +11,63 @@ const TableRow = ({
   role,
   ntid,
   handleNtidChange,
- 
   setModalData,
-  setSerial,
+  setOld_imei,
+  columns,
 }) => {
-  const [alert, setAlert] = useState({ message: '', type: '' });
+  const renderCell = (column) => {
+    if (column.roles && !column.roles.includes(role)) return null;
 
-  
-
-   console.log(ntid,"nnnn");
-
-  return (
-    <>
-      <AlertMessage
-        message={alert.message}
-        type={alert.type}
-        onClose={() => setAlert({ message: '', type: '' })}
-      />
-      <tr className="animate__animated animate__fadeIn text-nowrap">
-        <TableCell value={index + 1} />
-        <TableCell value={row.market} />
-        <TableCell value={row.storeid} />
-        <TableCell value={row.storename} />
-        <TableCell value={row.empid} />
-        <TableCell value={row.invoice} />
-        <TableCell value={row.serial} />
-        <TableCell value={row.modelname} />
-        <TableCell value={`$${row.Value}`} />
-        <TableCell value={row.RMADate?.slice(0, 10) || 'N/A'} />
-        <TableCell value={row.RMANumber || 'N/A'} />
-        <TableCell value={row.UPSTrackingNumber || 'N/A'} />
-        {role === 'user' && (
+    switch (column.label) {
+      case 'Ntid':
+        return (
           <NtidCell
+            key={column.field || column.label} // Use column.field or label as key
             row={row}
             ntid={ntid}
             handleNtidChange={handleNtidChange}
           />
-        )}
-        {
-          role==='user' && <VerifyNtid ntid={ntid}/>
-          
-          // <Upload />
-        }
-
-       
-        {(role === 'manager' || role === 'admin') && (
+        );
+      case 'Verify':
+        return <VerifyNtid key={column.field || column.label} ntid={ntid} />;
+      case 'Actions':
+        return (
           <ActionCell
+            key={column.field || column.label}
             row={row}
             setModalData={setModalData}
-            setSerial={setSerial}
+            setOld_imei={setOld_imei}
           />
-        )}
-      </tr>
-    </>
+        );
+      default:
+        return (
+          <TableCell
+            key={column.field || column.label} // Use column.field or label as key
+            value={column.field ? row[column.field] : index + 1}
+          />
+        );
+    }
+  };
+
+  return (
+    <tr key={index} className="animate__animated animate__fadeIn text-nowrap">
+      {columns.map((column) => {
+        const cell = renderCell(column);
+        return cell ? React.cloneElement(cell, { key: column.field || column.label }) : null;
+      })}
+    </tr>
   );
+};
+
+TableRow.propTypes = {
+  row: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  role: PropTypes.string.isRequired,
+  ntid: PropTypes.object,
+  handleNtidChange: PropTypes.func.isRequired,
+  setModalData: PropTypes.func.isRequired,
+  setOld_imei: PropTypes.func.isRequired,
+  columns: PropTypes.array.isRequired,
 };
 
 export default TableRow;

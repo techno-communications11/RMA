@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const SelectInput = ({
-  label = "", // Provide default empty string
+  label = "",
   icon,
   options,
   value,
@@ -22,7 +22,10 @@ const SelectInput = ({
   // Generate a safe ID for Form.Group
   const safeId = id || (label ? `select-${label.replace(/\s+/g, '-').toLowerCase()}` : `select-${Math.random().toString(36).substr(2, 9)}`);
 
-  // Enhance options with default option
+  // Ensure options is always an array
+  const safeOptions = Array.isArray(options) ? options : [];
+
+  // Enhance options with default option and validate each option
   const enhancedOptions = [
     ...(disableFirst ? [{ 
       id: "default", 
@@ -30,13 +33,23 @@ const SelectInput = ({
       label: placeholder || defaultOption, 
       disabled: true 
     }] : []),
-    ...(options || []).map((option, index) => ({
+    ...safeOptions.map((option, index) => ({
       id: option.id || index,
-      value: option.value || option.marketName || option.role || option,
-      label: option.label || option.marketName || option.role || option,
-      disabled: disabledOptions.includes(option.value || option.marketName || option.role || option)
+      value: option.value || option.marketName || option.role || "",
+      label: option.label || option.marketName || option.role || "Unnamed Option",
+      disabled: disabledOptions.includes(option.value || option.marketName || option.role || "")
     }))
   ];
+
+  // Handle empty options gracefully
+  if (safeOptions.length === 0 && !disableFirst) {
+    enhancedOptions.push({
+      id: "no-options",
+      value: "",
+      label: "No options available",
+      disabled: true
+    });
+  }
 
   return (
     <Form.Group controlId={safeId}>
@@ -51,17 +64,14 @@ const SelectInput = ({
         name={name}
         value={value}
         onChange={onChange}
-        className={`form-select text-muted  ${capitalize ? 'text-capitalize' : ''} shadow-none border ${className}`}
-       
+        className={`form-select text-muted ${capitalize ? 'text-capitalize' : ''} shadow-none border ${className}`}
         required={required}
       >
         {enhancedOptions.map((option) => (
           <option
             key={option.id}
             value={option.value}
-            className={`${optionClassName} ${
-              option.disabled ? "text-muted" : "text-muted"
-            }`}
+            className={`${optionClassName} ${option.disabled ? "text-muted" : ""}`}
             disabled={option.disabled}
           >
             {capitalize && typeof option.label === 'string' 
