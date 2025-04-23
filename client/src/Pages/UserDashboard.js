@@ -7,15 +7,19 @@ import ErrorMessage from "../Components/Messages/ErrorMessage";
 import "../Styles/UserDashboard.css";
 import GetStores from "../Components/Apis/GetStores";
 import GetData from "../Components/Apis/GetRmaData";
+import GetXbmData from "../Components/Apis/GetXbmData";
+import GetTradeINData from "../Components/Apis/GetTradeINData";
 
 const UserDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [stores, setStores] = useState([]);
   const [store, setCurrentStore] = useState(null);
-  const [stats, setStats] = useState(null);
+  const [rmastats, setrmaStats] = useState(null);
   const [animate, setAnimate] = useState(false);
   const { userData } = useUserContext();
+  const [xbmstats, setxbmStats] = useState(null);
+  const [tradeinstats, settradeinStats] = useState(null);
 
   useEffect(() => {
     const getStores = async () => {
@@ -28,7 +32,6 @@ const UserDashboard = () => {
             label: store.label || store.store_name || store.store || "Unknown Store",
             value: store.value || store.store_name || store.Store || "",
           }));
-           console.log("Normalized Stores:", normalizedStores); // Debugging line
           setStores(normalizedStores);
         } else {
           setError("No stores found");
@@ -60,7 +63,62 @@ const UserDashboard = () => {
               .length;
             const completed = total - pending;
 
-            setStats({ total, pending, completed });
+            setrmaStats({ total, pending, completed });
+            setAnimate(true);
+          } else {
+            setError("No data found for the selected store");
+          }
+        } catch (err) {
+          setError(err.message || "Failed to fetch data");
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [store]);
+  useEffect(() => {
+    if (store !== null) {
+      const fetchData = async () => {
+        try {
+          setAnimate(false);
+          const data = await GetXbmData();
+          if (Array.isArray(data) && data.length > 0) {
+            const filtered = data.filter((row) => row.store_name === store);
+            const total = filtered.length;
+            const pending = filtered.filter((row) => !row.UPSTrackingNumber)
+              .length;
+            const completed = total - pending;
+
+            setxbmStats({ total, pending, completed });
+            setAnimate(true);
+          } else {
+            setError("No data found for the selected store");
+          }
+        } catch (err) {
+          setError(err.message || "Failed to fetch data");
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [store]);
+
+  useEffect(() => {
+    if (store !== null) {
+      const fetchData = async () => {
+        try {
+          setAnimate(false);
+          const data = await GetTradeINData();
+          if (Array.isArray(data) && data.length > 0) {
+            const filtered = data.filter((row) => row.store_name === store);
+            const total = filtered.length;
+            const pending = filtered.filter((row) => !row.UPSTrackingNumber)
+              .length;
+            const completed = total - pending;
+
+            settradeinStats({ total, pending, completed });
             setAnimate(true);
           } else {
             setError("No data found for the selected store");
@@ -77,7 +135,7 @@ const UserDashboard = () => {
 
   if (loading || store === null) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
-  if (!stats) return <LoadingSpinner />;
+  if (!rmastats ||!xbmstats || !tradeinstats) return <LoadingSpinner />;
 
   return (
     <div className="dashboard-container container-fluid py-4">
@@ -86,17 +144,17 @@ const UserDashboard = () => {
         {/* RMA Dashboard */}
         <div className="dashboard-card">
           <h2 className="dashboard-title text-muted">RMA Dashboard</h2>
-          <StatsGrid stats={stats} animate={animate} />
+          <StatsGrid stats={rmastats} animate={animate} />
         </div>
         {/* XBM Dashboard */}
         <div className="dashboard-card">
           <h2 className="dashboard-title text-muted">XBM Dashboard</h2>
-          <StatsGrid stats={stats} animate={animate} />
+          <StatsGrid stats={xbmstats} animate={animate} />
         </div>
         {/* Trade-In Dashboard */}
         <div className="dashboard-card">
           <h2 className="dashboard-title text-muted">Trade-In Dashboard</h2>
-          <StatsGrid stats={stats} animate={animate} />
+          <StatsGrid stats={tradeinstats} animate={animate} />
         </div>
       </div>
     </div>

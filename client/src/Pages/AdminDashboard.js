@@ -4,13 +4,16 @@ import Markets from './Markets';
 import ImageStatus from './MarketImageStats'
 import ShippingStatus from './ShippingStatus';
 import '../Styles/AdminDashboard.css'; // Import custom CSS for additional styling
+import { useUserContext } from '../Components/Context/MyContext';
 
 function AdminDashboard() {
+   const {userData} = useUserContext();
+ 
   return (
     <Container fluid className="admin-dashboard">
       <div className="dashboard-header" style={{ backgroundImage: `url(/ship.jpg)` }}>
       
-        <h4 className='fw-bold text-pink-400 my-4 text-center'>RMA Dashboard</h4>
+        <h4 className='fw-bold text-pink-400 my-4 text-center text-capitalize'> {`${userData.role} Dashboard`}</h4>
       </div>
       
       <Tabs defaultActiveKey="markets" id="admin-dashboard-tabs">

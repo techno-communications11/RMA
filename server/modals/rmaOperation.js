@@ -34,7 +34,6 @@ const insertRmaData = async (data) => {
       row.refund_label_type,
       row.new_exchange_imei,
       row.employee_name,
-     
       row.sold_date,
       row.tracking_details,
       row.shipping_status,
@@ -49,7 +48,7 @@ const insertRmaData = async (data) => {
  const insertXBMData = async (data) => {
 
   const query = `
-    INSERT INTO orders 
+    INSERT INTO xbm_data 
     (market, store_id, store_name, ordered_date, description, 
      customer_imei, new_imei, label_type, tracking_number, status,
      created_at, updated_at)
@@ -63,7 +62,7 @@ const insertRmaData = async (data) => {
     }
 
     // Check for duplicate order (based on customer_imei)
-    if (await checkDuplicate('orders', 'customer_imei', row.customer_imei)) {
+    if (await checkDuplicate('xbm_data', 'customer_imei', row.customer_imei)) {
       console.warn(`Duplicate order detected for IMEI: ${row.customer_imei}. Skipping insertion.`);
       continue;
     }
@@ -98,25 +97,25 @@ const insertRmaData = async (data) => {
   
 const insertTradeInData = async (data) => {
   const query = `
-    INSERT INTO trade_ins 
+    INSERT INTO trade_in 
     (market, store_name, emp_id, invoice_date, ti_applied,
-     serial_number, model, label_type, tracking_number, status,
+     old_imei, model, label_type, tracking_number, status,
      created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   for (const row of data) {
     // Required field validation
-    if (!row.serial_number) {
-      throw new Error("Serial number is missing in the file");
+    if (!row.old_imei) {
+      throw new Error("old_imei number is missing in the file");
     }
-    if (!row.ti_applied || isNaN(row.ti_applied)) {
-      throw new Error("Trade-in value must be a valid number");
+    if (!row.ti_applied) {
+      throw new Error("Trade-in value must be");
     }
 
-    // Check for duplicate trade-in (based on serial_number)
-    if (await checkDuplicate('trade_ins', 'serial_number', row.serial_number)) {
-      console.warn(`Duplicate trade-in detected for serial: ${row.serial_number}. Skipping insertion.`);
+    // Check for duplicate trade-in (based on old_imei)
+    if (await checkDuplicate('trade_in', 'old_imei', row.old_imei)) {
+      console.warn(`Duplicate trade-in detected for serial: ${row.old_imei}. Skipping insertion.`);
       continue;
     }
 
@@ -135,7 +134,7 @@ const insertTradeInData = async (data) => {
       row.emp_id,
       invoiceDate || new Date().toISOString().split('T')[0], // Default to today if not provided
       tiApplied,
-      row.serial_number,
+      row.old_imei,
       row.model || null,
       row.label_type || 'Standard',
       row.tracking_number || null,

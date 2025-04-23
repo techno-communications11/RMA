@@ -33,11 +33,26 @@ const MarketImageStats = () => {
       const data = await GetStoresBymarket(market, setLoading); // GetStoresBymarket returns response.data
       if (Array.isArray(data) && data.length > 0) {
         // Normalize stores data to ensure consistent structure
-        const normalizedStores = data.map((store) => ({
-          store_name: store.value || store.store_name || "Unknown Store",
-          label: store.label || store.store_name || "Unknown Store",
-          totalRma: store.totalRma || 0,
-        }));
+        const normalizedStores = Array.isArray(data)
+        ? Object.values(
+            data.reduce((acc, store) => {
+              const storeName = store.value || store.store_name || "Unknown";
+              const totalRma = (store.notUploaded || 0) + (store.uploaded || 0);
+              const label = store.label || store.store_name || "Unknown";
+      
+              if (!acc[storeName]) {
+                acc[storeName] = {
+                  store_name: storeName,
+                  totalRma: 0,
+                  label,
+                };
+              }
+      
+              acc[storeName].totalRma += totalRma;
+              return acc;
+            }, {})
+          )
+        : [];
         setStoresData(normalizedStores);
         setSelectedMarket(market);
       } else {
@@ -97,6 +112,9 @@ const MarketImageStats = () => {
     setFilteredMarkets(filtered);
   };
 
+
+   console.log("Filtered markets:", marketsData); // Log for debugging
+
   const handleMarketFilter = (selectedMarket) => {
     if (!selectedMarket) {
       setFilteredMarkets(marketsData);
@@ -107,7 +125,6 @@ const MarketImageStats = () => {
       setFilteredMarkets(filtered);
     }
   };
-
   return (
     <div
       className="py-1 bg-light"

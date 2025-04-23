@@ -44,6 +44,8 @@ const Markets = () => {
       setError(err.message || "Failed to fetch markets");
     }
   };
+
+   console.log("Markets Data:", marketsData); // Debugging line
    
 
   const getStoresForMarket = async (marketName) => {
@@ -58,15 +60,28 @@ const Markets = () => {
     try {
       const data = await GetStoresBymarket(marketName, setStoreLoading);
 
-       console.log("Stores data response:", data); // Log for debugging
+      // Log for debugging
       // Normalize data to ensure consistent structure
       const normalizedStores = Array.isArray(data)
-        ? data.map((store) => ({
-            store_name: store.value || store.store_name || "Unknown",
-            totalRma: store.totalRma || 0,
-            label: store.label || store.store_name || "Unknown",
-          }))
-        : [];
+      ? Object.values(
+          data.reduce((acc, store) => {
+            const storeName = store.value || store.store_name || "Unknown";
+            const totalRma = (store.notUploaded || 0) + (store.uploaded || 0);
+            const label = store.label || store.store_name || "Unknown";
+    
+            if (!acc[storeName]) {
+              acc[storeName] = {
+                store_name: storeName,
+                totalRma: 0,
+                label,
+              };
+            }
+    
+            acc[storeName].totalRma += totalRma;
+            return acc;
+          }, {})
+        )
+      : [];
       setSelectedMarketStores(normalizedStores);
     } catch (err) {
       setError(err.message || "Failed to fetch stores");
@@ -120,6 +135,9 @@ const Markets = () => {
       </div>
     );
   }
+
+
+   // Log for debugging
 
   return (
     <div

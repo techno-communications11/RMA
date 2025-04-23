@@ -1,11 +1,12 @@
 const fs = require("fs");
 const { parseCSV, parseXLSX } = require("./fileParsers");
-const { insertRmaData, insertXBMData,insertTradeINData,insertTrackingData } = require("../../modals/rmaOperation");
+const { insertRmaData, insertXBMData,insertTradeInData,insertTrackingData } = require("../../modals/rmaOperation");
 
 const fileUpload = async (req, res) => {
   try {
     const { type } = req.body;
     const file = req.file;
+
 
     if (!file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -33,7 +34,7 @@ const fileUpload = async (req, res) => {
           await insertXBMData(parsedData);
           break;
           case "Trade-In Data":
-            await insertTradeINData(parsedData);
+            await insertTradeInData(parsedData);
             break;
             case "Tracking Data":
               await insertTrackingData(parsedData);

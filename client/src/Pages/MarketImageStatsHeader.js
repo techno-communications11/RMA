@@ -33,6 +33,8 @@ export const MarketImageStatsHeader = ({ error, onDateFilter, onMarketFilter }) 
     handleFetchData();
   }, []);
 
+   console.log("Market Data:", marketData); // Debugging line
+
   return (
     <div className="d-flex align-items-center mb-2 flex-column flex-md-row">
       {/* Loading Spinner */}

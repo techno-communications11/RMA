@@ -6,7 +6,6 @@ const getStoresForMarket = async (req, res) => {
         // console.log('Incoming request query:', req.query);
 
         if (!market) {
-            console.log('Missing market name');
             return res.status(400).json({ message: 'Market name is required' });
         }
 
@@ -21,7 +20,8 @@ const getStoresForMarket = async (req, res) => {
       
 
         const [stores] = await db.execute(getStoresQuery, [market]);
-        // console.log('Stores data:', stores);
+        console.log('Fetched stores:', stores);
+        
 
         res.status(200).json(stores);
     } catch (error) {

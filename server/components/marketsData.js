@@ -7,7 +7,7 @@ const getMarketsData = async (req, res) => {
             SELECT market, created_at as createdAt, COUNT(*) AS totalRma
             FROM rma_data
             WHERE old_imei IS NOT NULL
-            GROUP BY market, created_at
+            GROUP BY market
             ORDER BY created_at DESC;
         `;
 
@@ -21,7 +21,7 @@ const getMarketsData = async (req, res) => {
             createdAt: market.created_at,
             totalRma: market.totalRma,
         }));
-        // console.log('Transformed Markets Data:', marketsData);
+        console.log('Transformed Markets Data:', marketsData);
 
         // Respond with the formatted data
         res.status(200).json(marketsData);

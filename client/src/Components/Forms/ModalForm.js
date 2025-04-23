@@ -1,7 +1,6 @@
-// src/components/ModalForm.jsx
 import React from 'react';
 
-const ModalForm = ({ modalData, modalFields, handleModalChange, handleModalSubmit, setModalData }) => {
+const ModalForm = ({ modalData, modalFields, handleModalChange, handleModalSubmit, onHide }) => {
   if (!modalData) return null;
 
   return (
@@ -16,7 +15,7 @@ const ModalForm = ({ modalData, modalFields, handleModalChange, handleModalSubmi
             <button
               type="button"
               className="btn-close btn-close-white"
-              onClick={() => setModalData(null)}
+              onClick={onHide}
             ></button>
           </div>
           <div className="modal-body">
@@ -64,7 +63,7 @@ const ModalForm = ({ modalData, modalFields, handleModalChange, handleModalSubmi
             <button
               type="button"
               className="btn btn-secondary"
-              onClick={() => setModalData(null)}
+              onClick={onHide}
             >
               <i className="bi bi-x-circle me-1"></i>
               Cancel

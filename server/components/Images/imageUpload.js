@@ -15,10 +15,6 @@ const imageUpload = async (req, res) => {
       return res.status(400).json({ error: 'old_imei and ntid are required' });
     }
 
-    // Log for debugging
-    console.log('Request body:', req.body);
-    console.log('Uploaded files:', req.files);
-
     // Flatten req.files object into an array
     const allFiles = Object.values(req.files).flat();
 
@@ -43,6 +39,7 @@ const imageUpload = async (req, res) => {
     try {
       const imageUrls = [];
       const uploadedFiles = [];
+      const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
       // Process image files
       for (const file of imageFiles) {
@@ -57,26 +54,57 @@ const imageUpload = async (req, res) => {
 
         // Upload to S3
         const s3FileKey = await uploadFileToS3(file);
-        const imageUrl = `profilePhotos/${s3FileKey}`;
+        const imageUrl = `${s3FileKey}`;
 
-        // Insert into images table
-        const insertImageQuery = `INSERT INTO images (old_imei, image_type_id, image_url, ntid) VALUES (?, ?, ?, ?)`;
-        const [insertResult] = await connection.query(insertImageQuery, [
-          old_imei,
-          imageId,
-          imageUrl,
-          ntid,
-        ]);
+        // Check if image with same old_imei and image_type_id exists
+        const checkExistingQuery = `
+          SELECT id FROM images 
+          WHERE old_imei = ? AND image_type_id = ?
+        `;
+        const [existingImages] = await connection.query(checkExistingQuery, [old_imei, imageId]);
 
-        if (insertResult.affectedRows !== 1) {
-          throw new Error(`Failed to insert image URL for file: ${file.originalname}`);
+        if (existingImages.length > 0) {
+          // Update existing record
+          const updateImageQuery = `
+            UPDATE images 
+            SET image_url = ?, ntid = ?, updated_at = ?
+            WHERE old_imei = ? AND image_type_id = ?
+          `;
+          const [updateResult] = await connection.query(updateImageQuery, [
+            imageUrl,
+            ntid,
+            currentTimestamp,
+            old_imei,
+            imageId
+          ]);
+
+          if (updateResult.affectedRows !== 1) {
+            throw new Error(`Failed to update image URL for file: ${file.originalname}`);
+          }
+        } else {
+          // Insert new record
+          const insertImageQuery = `
+            INSERT INTO images 
+            (old_imei, image_type_id, image_url, ntid, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?)
+          `;
+          const [insertResult] = await connection.query(insertImageQuery, [
+            old_imei,
+            imageId,
+            imageUrl,
+            ntid,
+            currentTimestamp,
+            currentTimestamp
+          ]);
+
+          if (insertResult.affectedRows !== 1) {
+            throw new Error(`Failed to insert image URL for file: ${file.originalname}`);
+          }
         }
 
         imageUrls.push({ image_id: imageId, image_url: imageUrl });
         uploadedFiles.push(file.path);
       }
-
-      
 
       // Commit transaction
       await connection.commit();

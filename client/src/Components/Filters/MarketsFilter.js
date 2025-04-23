@@ -13,10 +13,12 @@ const MarketsFilter = ({ onFilter, marketsData }) => {
     }
   };
 
+   console.log("Selected Market:", marketsData); // Debugging line
+
   // Transform markets data for SelectInput
   const marketOptions = marketsData?.map(market => ({
-    value: market.marketName,
-    label: market.marketName
+    value: market.Market || market.marketName,
+    label: market.Market || market.marketName,
   })) || [];
 
   return (

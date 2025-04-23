@@ -4,8 +4,7 @@ import { useUserContext } from "../Components/Context/MyContext";
 import LoadingSpinner from "../Components/Messages/LoadingSpinner";
 import TableHeader from "../Components/Tables/TableHeader";
 import TableRow from "../Components/Tables/TableRow";
-import RMA_Columns from "../Constants/RMA_Columns.js";
-import XBM_Columns from "../Constants/XBM_Columns.js";
+
 
 const TableBodyWrapper = ({
   filteredData,
@@ -13,27 +12,27 @@ const TableBodyWrapper = ({
   ntid,
   setModalData,
   setOld_imei,
+  Columns,
   loading,
 }) => {
   const { userData } = useUserContext();
   const role = userData.role;
-  const path = window.location.pathname;
 
-  const getColumns = () => {
-    if (path.includes("xbmpage")) return XBM_Columns;
-    if (path.includes("tradeinpage")) return XBM_Columns;
-    return RMA_Columns;
-  };
 
   if (loading) {
     return <LoadingSpinner />;
+
+
   }
+
+
+   console.log("Filtered Data:", filteredData);
 
 
   return (
     <div style={{ maxHeight: "400px", overflowX: "auto" }}>
       <Table className="table table-hover table-striped">
-        <TableHeader role={role} columns={getColumns()} />
+        <TableHeader role={role} Columns={Columns} />
         <tbody className="text-center">
           {filteredData.map((row) => (
             <TableRow
@@ -45,7 +44,7 @@ const TableBodyWrapper = ({
               handleNtidChange={handleNtidChange}
               setModalData={setModalData}
               setOld_imei={setOld_imei}
-              columns={getColumns()}
+              Columns={Columns}
             />
           ))}
         </tbody>

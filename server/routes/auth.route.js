@@ -5,6 +5,7 @@ const { register } = require('../components/Auth/register');
 const { upload } = require('../multer/multerConfig');
 const { fileUpload } = require('../components/Files/fileUpload');
 const { getdata } = require('../components/getdata');
+const { getxbmdata } = require('../components/getxbmdata');
 const { imageUpload } = require('../components/Images/imageUpload');
 const { uploadData } = require('../components/updateDate');
 const { resetpassword } = require('../components/Auth/resetpassword');
@@ -17,6 +18,8 @@ const { fileUploadAndUpdate } = require('../components/fileUploadAndUpdate');
 const { getStores } = require('../components/getStores');
 const { getusers } = require('../components/Auth/getusers'); // Verify this import
 const authenticate = require('../Middleware/authMiddleware'); // Verify this import
+const { gettradeindata } = require('../components/gettradeindata'); // Verify this import
+const {userUploadedImage} = require('../components/Images/userUploadedImage'); // Verify this import
 
 
 
@@ -42,6 +45,9 @@ router.post('/uploaddata-details', authenticate, upload.single('file'), (req, re
 });
 
 router.get('/getdata', authenticate, getdata);
+router.get('/getxbmdata', authenticate, getxbmdata);
+router.get('/gettradeindata', authenticate, gettradeindata);
+router.post('/fileUpload', authenticate, upload.single('file'), fileUpload);
 router.post('/updateData', authenticate, uploadData);
 router.post('/register-store', authenticate, registerStore);
 router.post('/register-market', authenticate, registerMarket);
@@ -50,6 +56,7 @@ router.get('/get-stores', authenticate, getStoresForMarket);
 router.get('/get-stores-by-market', authenticate, getStoresImageByMarket);
 router.get('/get-market-image-counts', authenticate, getMarketImageCounts);
 router.get('/getstores', authenticate, getStores);
+router.get('/useruploadedimage/:showntid', authenticate, userUploadedImage);
 router.post(
   '/imageUpload',
   authenticate,

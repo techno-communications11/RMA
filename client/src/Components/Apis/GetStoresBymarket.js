@@ -13,7 +13,6 @@ const GetStoresBymarket = async (market, setLoading) => {
       if (!response.data || typeof response.data !== "object") {
         throw new Error("Invalid store data format");
       }
-      console.log("Stores by market data:", response.data); // Log for debugging
       return response.data; // Return only the data
     }
     throw new Error(response.data?.message || "Failed to fetch stores");

@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
-import AlertMessage from '../Messages/AlertMessage';
-import { useNavigate } from 'react-router-dom';
-import Button from '../Events/Button';
+import React, { useState } from "react";
+import AlertMessage from "../Messages/AlertMessage";
+import { useNavigate } from "react-router-dom";
+import Button from "../Events/Button";
 
-function VerifyNtid({ ntid }) {
+function VerifyNtid({ ntid, rowntid, rowold_imei }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const { key, value } = React.useMemo(() => {
-    if (ntid && typeof ntid === 'object') {
+    if (ntid && typeof ntid === "object") {
       const entry = Object.entries(ntid)[0] || [];
       return { key: entry[0], value: entry[1] };
     }
-    return { key: '', value: '' };
+    return { key: "", value: "" };
   }, [ntid]);
 
   const handleVerifyNtid = () => {
+    if (rowold_imei && rowold_imei !== "" && rowntid && rowntid !== "") {
+      navigate(`/userimageupload/${rowold_imei}/${rowntid}`);
+    }
+
     if (!value || value.length !== 8) {
-      setError({ message: 'Invalid NTID', type: 'danger' });
+      setError({ message: "Invalid NTID", type: "danger" });
       return;
     }
-    
+
     setError(null);
-    console.log('NTID is valid:', key, value);
+
     navigate(`/userimageupload/${key}/${value}`);
   };
 
@@ -36,11 +40,19 @@ function VerifyNtid({ ntid }) {
         />
       )}
 
-      <Button 
-        onClick={handleVerifyNtid} 
-        variant="btn-md btn-success small" 
-        label="Verify"
-      />
+      {rowntid ? (
+        <Button
+          onClick={handleVerifyNtid}
+          variant="btn-md btn-success small"
+          label="Verified"
+        />
+      ) : (
+        <Button
+          onClick={handleVerifyNtid}
+          variant="btn-md btn-success small"
+          label="Verify"
+        />
+      )}
     </div>
   );
 }

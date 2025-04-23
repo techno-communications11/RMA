@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TableHeader = ({ role, columns }) => {
+const TableHeader = ({ role, Columns }) => {
   return (
     <thead>
       <tr className="text-center">
-        {columns.map((col, index) => {
+        {Columns.map((col, index) => {
           if (col.roles && !col.roles.includes(role)) return null;
           return (
             <th
@@ -24,7 +24,7 @@ const TableHeader = ({ role, columns }) => {
 
 TableHeader.propTypes = {
   role: PropTypes.string.isRequired,
-  columns: PropTypes.arrayOf(
+  Columns: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       field: PropTypes.string,

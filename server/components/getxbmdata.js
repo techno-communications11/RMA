@@ -1,11 +1,13 @@
 
 const db = require("../databaseConnection/db");
 
-const getdata = async (req, res) => {
+
+
+const getxbmdata = async (req, res) => {
   try {
     const [result] = await db.execute(`
-      SELECT rma.*, im.ntid
-FROM rma_data AS rma
+       SELECT xbm.*, im.ntid
+FROM xbm_data AS xbm
 LEFT JOIN (
     SELECT old_imei, ntid
     FROM images
@@ -14,11 +16,8 @@ LEFT JOIN (
         FROM images
         GROUP BY old_imei
     )
-) AS im ON rma.old_imei = im.old_imei;
+) AS im ON xbm.old_imei = im.old_imei;
     `);
-
-    
-
     res.status(200).json(result);
   } catch (error) {
     console.error("Error in getdata:", error);
@@ -29,4 +28,4 @@ LEFT JOIN (
   }
 };
 
-module.exports = { getdata };
+module.exports = { getxbmdata };

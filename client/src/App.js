@@ -120,7 +120,7 @@ const AppContent = () => {
               path="/xbmpage"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <xbm />
+                  <Xbm />
                 </ProtectedRoute>
               }
             />

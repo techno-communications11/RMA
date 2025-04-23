@@ -9,13 +9,12 @@ import ModalForm from "../Forms/ModalForm";
 import { useParams } from "react-router-dom";
 import LoadingSpinner from "../Messages/LoadingSpinner";
 import GetStores from "../Apis/GetStores";
-import GetData from "../Apis/GetRmaData";
 
-const Table = () => {
+const Table = ({ Columns, getdata, loading, error }) => {
   const [state, setState] = useState({
     data: [],
     filteredData: [],
-    loading: true,
+    loading: false, // Internal loading for stores
     error: null,
     stores: [],
     store: null,
@@ -33,6 +32,8 @@ const Table = () => {
     ntid: {},
     old_imei: { old_imei: "" },
   });
+
+  console.log("getdata (Table):", getdata);
 
   const { userData } = useUserContext();
   const { paramed_store_name } = useParams();
@@ -55,9 +56,8 @@ const Table = () => {
         (loading) => updateState({ loading }),
         (error) => updateState({ error })
       );
+      console.log("Fetched stores data:", data);
       if (Array.isArray(data) && data.length > 0) {
-        // Use raw data with { id, store }
-        console.log("Stores:", data);
         updateState({ stores: data, loading: false });
         return data;
       }
@@ -72,17 +72,23 @@ const Table = () => {
     }
   }, []);
 
-  const fetchData = useCallback(async (store) => {
+  const fetchData = useCallback(async (store, getdata) => {
     try {
       updateState({ loading: true });
-      console.log("Filtering by store:", store);
-      const data = await GetData();
-      console.log("GetData response:", data);
-      if (Array.isArray(data)) {
-        let filtered = data;
+      console.log(
+        "store fields in getdata:",
+        getdata.map((row) => ({
+          store: row.store,
+          store_name: row.store_name,
+          storename: row.storename,
+          address: row.address,
+          store_address: row.store_address,
+        }))
+      );
+      if (Array.isArray(getdata)) {
+        let filtered = getdata;
         if (store) {
           filtered = filtered.filter((row) => {
-            // Handle possible store keys in GetData
             const rowStoreName =
               row.store ||
               row.store_name ||
@@ -93,13 +99,9 @@ const Table = () => {
               rowStoreName &&
               store &&
               rowStoreName.toLowerCase() === store.toLowerCase();
-            console.log(
-              `Row store/store_name/address: ${rowStoreName}, Store: ${store}, Match: ${isMatch}`
-            );
             return isMatch;
           });
         }
-        console.log("Filtered data length:", filtered.length);
         if (filtered.length === 0 && store) {
           updateState({
             error: `No data found for store: ${store}`,
@@ -139,17 +141,11 @@ const Table = () => {
         console.log("No stores available");
         return null;
       }
-
-      console.log("Stores for matching:", stores);
       if (paramed_store_name) {
         const cleanStoreName = paramed_store_name.trim().toLowerCase();
         const foundStore = stores.find((s) => {
           const storeName = s?.store;
-          console.log(`Store ${s.id} store:`, storeName);
-          return (
-            storeName &&
-            storeName.toLowerCase() === cleanStoreName
-          );
+          return storeName && storeName.toLowerCase() === cleanStoreName;
         });
         console.log("Found store by URL paramed_store_name:", foundStore);
         if (!foundStore) {
@@ -164,30 +160,30 @@ const Table = () => {
         }
         return foundStore.store;
       }
-
       if (userData?.storeid) {
         const foundStore = stores.find((s) => s.id === userData.storeid);
         console.log("Found store by userData.storeid:", foundStore);
         return foundStore?.store || null;
       }
-
-      console.log("No store matched");
       return null;
     },
     [paramed_store_name, userData]
   );
 
   useEffect(() => {
+    let mounted = true;
     const initialize = async () => {
       const stores = await fetchStores();
-      console.log("Fetched stores:", stores);
+      if (!mounted) return;
       const currentStore = setCurrentStore(stores);
-      console.log("Set current store:", currentStore);
       updateState({ store: currentStore });
-      await fetchData(currentStore);
+      await fetchData(currentStore, getdata);
     };
     initialize();
-  }, [fetchStores, fetchData, setCurrentStore]);
+    return () => {
+      mounted = false;
+    };
+  }, [fetchStores, setCurrentStore, getdata]);
 
   useEffect(() => {
     if (state.search === "") {
@@ -195,9 +191,8 @@ const Table = () => {
     } else {
       const lowercasedSearch = state.search.toLowerCase();
       const filtered = state.data.filter((row) =>
-        Object.values(row).some(
-          (value) =>
-            value?.toString().toLowerCase().includes(lowercasedSearch)
+        Object.values(row).some((value) =>
+          value?.toString().toLowerCase().includes(lowercasedSearch)
         )
       );
       updateState({ filteredData: filtered });
@@ -285,11 +280,11 @@ const Table = () => {
     });
   };
 
-  if (state.error) {
+  if (error) {
     return (
       <div className="alert alert-danger m-4" role="alert">
         <i className="bi bi-exclamation-triangle-fill me-2"></i>
-        {state.error}
+        {error}
       </div>
     );
   }
@@ -302,7 +297,7 @@ const Table = () => {
         onClose={() => updateState({ alert: { message: "", type: "" } })}
       />
       <SearchBar search={state.search} handleSearch={handleSearch} />
-      {state.loading ? (
+      {loading || state.loading ? (
         <LoadingSpinner />
       ) : state.isReady ? (
         <div
@@ -311,9 +306,12 @@ const Table = () => {
         >
           {state.filteredData.length > 0 ? (
             <TableBodyWrapper
+              Columns={Columns}
               loading={state.loading}
               ntid={state.ntid}
-              setModalData={(data) => updateState({ modal: { ...state.modal, data } })}
+              setModalData={(data) =>
+                updateState({ modal: { ...state.modal, data } })
+              }
               filteredData={state.filteredData}
               handleNtidChange={handleNtidChange}
               setOld_imei={(old_imei) => updateState({ old_imei })}
@@ -330,7 +328,7 @@ const Table = () => {
           )}
         </div>
       ) : (
-        <div className="text-center p-4">Initializing...</div>
+        <LoadingSpinner />
       )}
       <ModalForm
         show={state.modal.data !== null}
@@ -339,6 +337,9 @@ const Table = () => {
         handleModalChange={handleModalChange}
         handleModalSubmit={handleModalSubmit}
         onHide={closeModal}
+        setModalData={(data) =>
+          updateState({ modal: { ...state.modal, data } })
+        }
       />
     </div>
   );

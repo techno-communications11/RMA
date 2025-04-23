@@ -5,18 +5,19 @@ const getMarketImageCounts = async (req, res) => {
     // console.log('Incoming request query:', req.query);
     try {
         const query = `
-            SELECT r.market AS Market, 
+            SELECT r.market AS Market,
+            r.store_name AS StoreName, 
                    r.created_at as createdAt, 
                    COUNT(CASE WHEN i.image_url IS NULL THEN 1 END) AS notUploaded, 
                    COUNT(CASE WHEN i.image_url IS NOT NULL THEN 1 END) AS uploaded 
             FROM rma_data r
             LEFT JOIN images i ON r.old_imei = i.old_imei
-            GROUP BY r.market, r.created_at
+            GROUP BY r.market
             ORDER BY r.created_at DESC;
         `;
-        // console.log('Executing query:', query);
+       
         const [results] = await db.execute(query);
-        console.log('Query results:', results);
+        console.log('Executing query:', results);
         res.status(200).json(results);
     } catch (error) {
         console.error('Error fetching market image counts:', error);
@@ -27,10 +28,9 @@ const getMarketImageCounts = async (req, res) => {
 // Fetch store details and their image statuses for a specific market, including createdat
 const getStoresImageByMarket = async (req, res) => {
     const { market } = req.query;
-    // console.log('Incoming request query:', req.query);
 
     if (!market) {
-        // console.log('Missing market name');
+    
         return res.status(400).json({ message: 'Market is required' });
     }
 
@@ -46,10 +46,9 @@ const getStoresImageByMarket = async (req, res) => {
             GROUP BY r.store_name, r.created_at
             ORDER BY r.created_at DESC;
         `;
-        // console.log('Executing query:', query);
-        // console.log('Query parameters:', [market]);
+      
         const [results] = await db.execute(query, [market]);
-        // console.log('Query results:', results);
+    
         res.status(200).json(results);
     } catch (error) {
         console.error('Error fetching store image stats:', error);

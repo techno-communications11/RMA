@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {  Form, Row, Col, Alert } from "react-bootstrap";
-import { FaCalendarAlt, FaFilter } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import "../../Styles/DateFilter.css"
 import Button from "../Events/Button";
 

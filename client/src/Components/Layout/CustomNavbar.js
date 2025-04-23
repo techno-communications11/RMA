@@ -78,7 +78,8 @@ const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communicatio
                     key={link.to}
                     as={Link}
                     to={link.to}
-                    className="fw-bold mx-1 text-muted"
+                    className="fs-6 mb-0 text-black me-2"
+                     style={{fontWeight:500}}
                     onClick={handleNavLinkClick}
                   >
                     {link.label}
@@ -90,13 +91,9 @@ const CustomNavbar = ({ logoSrc = '/logo.webp', brandName = 'Techno Communicatio
             {userData && (
               <Button
                 variant="btn-danger btn-sm"
-
-                
                 onClick={handleLogout}
                 label="Logout"
               />
-                 
-              
             )}
           </Nav>
         </Navbar.Collapse>

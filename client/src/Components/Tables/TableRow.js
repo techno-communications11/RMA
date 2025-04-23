@@ -13,27 +13,28 @@ const TableRow = ({
   handleNtidChange,
   setModalData,
   setOld_imei,
-  columns,
+  Columns,
 }) => {
-  const renderCell = (column) => {
-    if (column.roles && !column.roles.includes(role)) return null;
+  const renderCell = (Columns) => {
+    if (Columns.roles && !Columns.roles.includes(role)) return null;
+    
 
-    switch (column.label) {
+    switch (Columns.label) {
       case 'Ntid':
         return (
           <NtidCell
-            key={column.field || column.label} // Use column.field or label as key
+            key={Columns.field || Columns.label} // Use Columns.field or label as key
             row={row}
             ntid={ntid}
             handleNtidChange={handleNtidChange}
           />
         );
       case 'Verify':
-        return <VerifyNtid key={column.field || column.label} ntid={ntid} />;
+        return <VerifyNtid key={Columns.field || Columns.label} ntid={ntid} rowntid={row.ntid} rowold_imei={row.old_imei} />;
       case 'Actions':
         return (
           <ActionCell
-            key={column.field || column.label}
+            key={Columns.field || Columns.label}
             row={row}
             setModalData={setModalData}
             setOld_imei={setOld_imei}
@@ -42,8 +43,8 @@ const TableRow = ({
       default:
         return (
           <TableCell
-            key={column.field || column.label} // Use column.field or label as key
-            value={column.field ? row[column.field] : index + 1}
+            key={Columns.field || Columns.label} // Use Columns.field or label as key
+            value={Columns.field ? row[Columns.field] : index + 1}
           />
         );
     }
@@ -51,9 +52,9 @@ const TableRow = ({
 
   return (
     <tr key={index} className="animate__animated animate__fadeIn text-nowrap">
-      {columns.map((column) => {
-        const cell = renderCell(column);
-        return cell ? React.cloneElement(cell, { key: column.field || column.label }) : null;
+      {Columns.map((Columns) => {
+        const cell = renderCell(Columns);
+        return cell ? React.cloneElement(cell, { key: Columns.field || Columns.label }) : null;
       })}
     </tr>
   );
@@ -67,7 +68,7 @@ TableRow.propTypes = {
   handleNtidChange: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
   setOld_imei: PropTypes.func.isRequired,
-  columns: PropTypes.array.isRequired,
+  Columns: PropTypes.array.isRequired,
 };
 
 export default TableRow;

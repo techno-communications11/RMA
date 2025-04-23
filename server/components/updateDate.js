@@ -2,7 +2,6 @@ const db = require("../databaseConnection/db");
 
 const uploadData = async (req, res) => {
   const { old_imei, RMADate, RMANumber, ups_tracking_number } = req.body;
-  // console.log(req.body,' data is to be body')  
 
   // Check if the necessary fields are present
   if (!old_imei || !RMADate || !RMANumber || !ups_tracking_number) {

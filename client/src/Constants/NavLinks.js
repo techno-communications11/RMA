@@ -20,11 +20,7 @@ const navLinks = [
     label: "Trade-IN",
     roles: ["user"],
   },
-  {
-    to: "/tracking",
-    label: "Tracking",
-    roles: ["user", "admin", "manager"],
-  },
+ 
   {
     to: "/register",
     label: "Register",

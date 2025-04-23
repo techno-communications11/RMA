@@ -12,7 +12,6 @@ const GetMarketsData = async (setLoading) => {
       `${process.env.REACT_APP_BASE_URL}/get-market-image-counts`,
       { withCredentials: true }
     );
-    console.log("Market data response:", response.data); // Log for debugging
 
     if (response.status === 200) {
       // Optional: Validate response.data (e.g., ensure it's an array)

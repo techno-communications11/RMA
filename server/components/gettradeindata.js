@@ -1,11 +1,14 @@
-
 const db = require("../databaseConnection/db");
 
-const getdata = async (req, res) => {
+
+
+
+
+const gettradeindata = async (req, res) => {
   try {
     const [result] = await db.execute(`
-      SELECT rma.*, im.ntid
-FROM rma_data AS rma
+      SELECT ti.*, im.ntid
+FROM trade_in AS ti
 LEFT JOIN (
     SELECT old_imei, ntid
     FROM images
@@ -14,7 +17,7 @@ LEFT JOIN (
         FROM images
         GROUP BY old_imei
     )
-) AS im ON rma.old_imei = im.old_imei;
+) AS im ON ti.old_imei = im.old_imei;
     `);
 
     
@@ -29,4 +32,4 @@ LEFT JOIN (
   }
 };
 
-module.exports = { getdata };
+module.exports = { gettradeindata };

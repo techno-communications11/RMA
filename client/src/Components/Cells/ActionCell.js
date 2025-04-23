@@ -5,7 +5,7 @@ import { MdError } from 'react-icons/md';
 const ActionCell = ({ row, setModalData, setOld_imei }) => {
   return (
     <td>
-      {row.imageurl && row.imageurl.trim() !== '' ? (
+      {row.image_url && row.image_url.trim() !== '' ? (
         <button
           className="btn btn-primary btn-sm"
           onClick={() => {
