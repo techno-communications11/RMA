@@ -7,7 +7,7 @@ const navLinks = [
   {
     to: "/uploads",
     label: "Uploads",
-    roles: ["manager"],
+    roles: ["inventry"],
   },
 
   {

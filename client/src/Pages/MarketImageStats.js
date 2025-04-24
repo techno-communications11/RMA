@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Table } from "react-bootstrap";
 import { MarketImageStatsHeader } from "./MarketImageStatsHeader";
 import { MarketCard } from "../Components/Cards/MarketCard";
 import StoresList from "../Components/Misc/StoresList";
 import LoadingSpinner from "../Components/Messages/LoadingSpinner";
 import fetchMarketData from "../Components/Apis/GetMarketsImageCountsData";
 import GetStoresBymarket from "../Components/Apis/GetStoresBymarket";
+import PropTypes from "prop-types";
 
-
-const MarketImageStats = () => {
+const MarketImageStats = ({ TableName }) => {
   const [marketsData, setMarketsData] = useState([]);
   const [storesData, setStoresData] = useState([]);
   const [selectedMarket, setSelectedMarket] = useState("");
@@ -30,55 +31,59 @@ const MarketImageStats = () => {
     }
 
     try {
-      const data = await GetStoresBymarket(market, setLoading); // GetStoresBymarket returns response.data
+      const data = await GetStoresBymarket(market, setLoading, TableName);
       if (Array.isArray(data) && data.length > 0) {
-        // Normalize stores data to ensure consistent structure
         const normalizedStores = Array.isArray(data)
-        ? Object.values(
-            data.reduce((acc, store) => {
-              const storeName = store.value || store.store_name || "Unknown";
-              const totalRma = (store.notUploaded || 0) + (store.uploaded || 0);
-              const label = store.label || store.store_name || "Unknown";
-      
-              if (!acc[storeName]) {
-                acc[storeName] = {
-                  store_name: storeName,
-                  totalRma: 0,
-                  label,
-                };
-              }
-      
-              acc[storeName].totalRma += totalRma;
-              return acc;
-            }, {})
-          )
-        : [];
+          ? Object.values(
+              data.reduce((acc, store) => {
+                const storeName = store.value || store.store_name || "Unknown";
+                const totalRma = (store.notUploaded || 0) + (store.uploaded || 0);
+                const label = store.label || store.store_name || "Unknown";
+
+                if (!acc[storeName]) {
+                  acc[storeName] = {
+                    store_name: storeName,
+                    totalRma: 0,
+                    label,
+                  };
+                }
+
+                acc[storeName].totalRma += totalRma;
+                return acc;
+              }, {})
+            )
+          : [];
         setStoresData(normalizedStores);
         setSelectedMarket(market);
       } else {
         handleError("No stores found for this market");
-        setStoresData([]);
       }
     } catch (err) {
       handleError(err.message || "Failed to fetch store data");
-      setStoresData([]);
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!TableName) {
+        handleError("TableName is not provided");
+        return;
+      }
       try {
-        const data = await fetchMarketData(setLoading);
+        setLoading(true);
+        const data = await fetchMarketData(setLoading, TableName);
         if (Array.isArray(data) && data.length > 0) {
-          // Normalize markets data
-           console.log("Market data:", data); // Log for debugging
-          const normalizedMarkets = data.map((market) => ({
-            market: market.value || market.Market || "Unknown Market",
-            label: market.label || market.Market || "Unknown Market",
-            uploaded: market.uploaded || 0,
-            notUploaded: market.notUploaded || 0,
-            createdAt: market.createdAt || new Date(),
-          }));
+          const normalizedMarkets = data.map((market) => {
+            const normalized = {
+              market: market.value || market.Market || "Unknown Market",
+              label: market.label || market.Market || "Unknown Market",
+              uploaded: market.uploaded || 0,
+              notUploaded: market.notUploaded || 0,
+              createdAt: market.createdAt || new Date(),
+            };
+            console.log("Normalized market:", normalized);
+            return normalized;
+          });
           setMarketsData(normalizedMarkets);
           setFilteredMarkets(normalizedMarkets);
         } else {
@@ -86,18 +91,28 @@ const MarketImageStats = () => {
         }
       } catch (err) {
         handleError(err.message || "Failed to fetch market data");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [TableName]);
 
   const handleStoreClick = (paramed_store_name) => {
-    navigate(`/rmapage/${paramed_store_name}`);
+    if (TableName === "trade_in") {
+      navigate(`/tradeinpage/${paramed_store_name}`);
+    }
+    if (TableName === "rma_data") {
+      navigate(`/rmapage/${paramed_store_name}`);
+    }
+    if (TableName === "xbm_data") {
+      navigate(`/xbmpage/${paramed_store_name}`);
+    }
   };
 
   const normalizeDate = (date) => {
-    return new Date(date).toISOString().split("T")[0]; // YYYY-MM-DD
+    return new Date(date).toISOString().split("T")[0];
   };
 
   const handleDateFilter = ({ startDate, endDate }) => {
@@ -112,9 +127,6 @@ const MarketImageStats = () => {
     setFilteredMarkets(filtered);
   };
 
-
-   console.log("Filtered markets:", marketsData); // Log for debugging
-
   const handleMarketFilter = (selectedMarket) => {
     if (!selectedMarket) {
       setFilteredMarkets(marketsData);
@@ -125,6 +137,7 @@ const MarketImageStats = () => {
       setFilteredMarkets(filtered);
     }
   };
+
   return (
     <div
       className="py-1 bg-light"
@@ -138,39 +151,56 @@ const MarketImageStats = () => {
           error={error}
           onDateFilter={handleDateFilter}
           onMarketFilter={handleMarketFilter}
+          TableName={TableName}
         />
         {loading ? (
           <LoadingSpinner className="loading-indicator" />
         ) : (
-          <div className="row g-2 justify-content-center">
-            {filteredMarkets.map((market, index) => (
-              <div
-                key={index}
-                className={`col-md-${selectedMarket === market.market ? 12 : 6} animate__animated animate__fadeInUp`}
-              >
-                <MarketCard
-                  market={market.label || market.market} // Use label for display
-                  isSelected={selectedMarket === market.market}
-                  onClick={() => fetchStoresData(market.market)}
-                  uploadedCount={market.uploaded}
-                  notUploadedCount={market.notUploaded}
-                  role="button"
-                  tabIndex={0}
-                />
-                {selectedMarket === market.market && (
-                  <StoresList
-                    marketName={market.label || market.market}
-                    stores={storesData}
-                    onStoreClick={handleStoreClick}
+          <Table striped bordered hover responsive className="market-table mt-4">
+            <thead>
+              <tr>
+                <th>Expand</th>
+                <th>Market Name</th>
+                <th>Uploaded</th>
+                <th>Not Uploaded</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredMarkets.map((market, index) => (
+                <React.Fragment key={index}>
+                  <MarketCard
+                    market={market.label || market.market}
+                    isSelected={selectedMarket === market.market}
+                    onClick={() => fetchStoresData(market.market)}
+                    uploadedCount={market.uploaded}
+                    notUploadedCount={market.notUploaded}
                   />
-                )}
-              </div>
-            ))}
-          </div>
+                  {selectedMarket === market.market && (
+                    <tr>
+                      <td colSpan="5">
+                        <StoresList
+                          marketName={market.label || market.market}
+                          stores={storesData}
+                          onStoreClick={handleStoreClick}
+                          TableName={TableName}
+                        />
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </Table>
         )}
+        {error && <div className="text-danger">{error}</div>}
       </div>
     </div>
   );
+};
+
+MarketImageStats.propTypes = {
+  TableName: PropTypes.string.isRequired,
 };
 
 export default MarketImageStats;

@@ -13,7 +13,7 @@ const RMA_Columns = [
   { label: 'Shipping Status', field: 'shipping_status' },
   { label: 'Ntid', roles: ['user'], },
   { label: 'Verify', roles: ['user'] },
-  { label: 'Actions', roles: ['manager', 'admin'] },
+  { label: 'Actions', roles: ['inventry', 'admin'] },
 ];
 
 export default RMA_Columns;

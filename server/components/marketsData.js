@@ -1,11 +1,12 @@
 const db = require('../databaseConnection/db');
 
 const getMarketsData = async (req, res) => {
+    const {TableName}=req.params
     try {
         // Query to get count of RMAs grouped by market and created date
         const getMarketsRmaStatsQuery = `
             SELECT market, created_at as createdAt, COUNT(*) AS totalRma
-            FROM rma_data
+            FROM ${TableName}
             WHERE old_imei IS NOT NULL
             GROUP BY market
             ORDER BY created_at DESC;

@@ -11,7 +11,7 @@ const SearchBar = ({ search, handleSearch }) => {
         <div className="d-flex justify-content-center border border-2 rounded-pill px-2">
           <Input
             varient="form-control shadow-none border-0 bg-transparent"
-            placeholder="Search..."
+            placeholder="Search using old Imei..."
             value={search}
             onChange={handleSearch}
           />

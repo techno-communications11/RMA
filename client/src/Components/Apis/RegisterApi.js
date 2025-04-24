@@ -2,12 +2,7 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_BASE_URL;
 
-/**
- * Registers a user via the API
- * @param {Object} userData - User data to send in the request body
- * @param {function} setLoading - State setter function for loading state
- * @returns {Promise<Object>} - Returns an object with success status, data/error, and HTTP status
- */
+
 export const RegisterApi = async (userData, setLoading) => {
   setLoading(true);
   try {

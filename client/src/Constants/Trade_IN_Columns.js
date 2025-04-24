@@ -13,7 +13,7 @@ const Trade_IN_Columns = [
     { label: 'Status', field: 'status' },
     { label: 'Ntid', field:'ntid', roles:['user'] },
     { label: 'Verify', field:'verify', roles:['user'] },
-    { label: 'Actions', roles:['manager', 'admin'] },
+    { label: 'Actions', roles:['inventry', 'admin'] },
   
   ];
   export default Trade_IN_Columns;

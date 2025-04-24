@@ -9,7 +9,6 @@ const GetStores = async () => {
       { withCredentials: true }
     );
 
-     console.log("Stores data response:", response.data); // Log for debugging
 
     
 

@@ -2,12 +2,7 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_BASE_URL;
 
-/**
- * Registers a market via the API
- * @param {Object} marketData - Market data with marketname
- * @param {Function} setLoading - State setter for loading state
- * @returns {Promise<Object>} - { success: boolean, data?: Object, error?: string, status?: number }
- */
+
 export const RegisterMarketApi = async (marketData, setLoading) => {
   setLoading(true);
   try {

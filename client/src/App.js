@@ -9,7 +9,6 @@ import {
 import Login from "./Pages/Login.js";
 import RegisterPage from "./Pages/RegisterPage.js";
 import Navbar from "./Components/Layout/CustomNavbar.js";
-import Home from "./Pages/Home.js";
 import UpdatePassword from "./Pages/Updatepassword.js";
 import RegisterMarket from "./Pages/RegisterMarket.js";
 import RegisterStore from "./Pages/RegisterStore.js";
@@ -21,7 +20,7 @@ import {
 } from "./Components/Context/MyContext.js";
 import UserDashboard from "./Pages/UserDashboard.js";
 import UserImageUploads from "./Pages/UserImageUploads.js";
-import Tracking from "./Pages/Tracking.js";
+
 import Upload from "./Pages/Upload.js";
 import Xbm from "./Pages/Xbm.js";
 import Tradein from "./Pages/Tradein.js";
@@ -78,14 +77,6 @@ const AppContent = () => {
           }
         />
 
-        <Route
-          path="/tracking"
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Tracking />
-            </ProtectedRoute>
-          }
-        />
 
         <Route
           path="/uploads"
@@ -104,7 +95,24 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
-        
+
+        <Route
+          path="/tradeinpage/:paramed_store_name"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Rma />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/xbmpage/:paramed_store_name"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Rma />
+            </ProtectedRoute>
+          }
+        />
+
         {userData?.role === "user" && (
           <>
             <Route

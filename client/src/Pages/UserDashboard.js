@@ -77,6 +77,7 @@ const UserDashboard = () => {
       fetchData();
     }
   }, [store]);
+  
   useEffect(() => {
     if (store !== null) {
       const fetchData = async () => {

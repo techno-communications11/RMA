@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const GetMarkets = async (setLoading) => {
+const GetMarkets = async (setLoading,TableName) => {
   try {
     setLoading(true);
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/get-markets-data`,
+      `${process.env.REACT_APP_BASE_URL}/get-markets-data/${TableName}`,
       { withCredentials: true }
     );
 

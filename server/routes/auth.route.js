@@ -51,10 +51,10 @@ router.post('/fileUpload', authenticate, upload.single('file'), fileUpload);
 router.post('/updateData', authenticate, uploadData);
 router.post('/register-store', authenticate, registerStore);
 router.post('/register-market', authenticate, registerMarket);
-router.get('/get-markets-data', authenticate, getMarketsData);
+router.get('/get-markets-data/:TableName', authenticate, getMarketsData);
 router.get('/get-stores', authenticate, getStoresForMarket);
-router.get('/get-stores-by-market', authenticate, getStoresImageByMarket);
-router.get('/get-market-image-counts', authenticate, getMarketImageCounts);
+router.get('/get-stores-image-by-market', authenticate, getStoresImageByMarket);
+router.get('/get-market-image-counts/:TableName', authenticate, getMarketImageCounts);
 router.get('/getstores', authenticate, getStores);
 router.get('/useruploadedimage/:showntid', authenticate, userUploadedImage);
 router.post(

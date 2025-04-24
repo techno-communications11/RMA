@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const NtidCell = ({ row, ntid, handleNtidChange }) => {
   return (
 
-     console.log("NtidCell Row:", row),
     <td className=" py-2">
       {row.ntid ? (
         <p className="small text-secondary mb-0">{row.ntid}</p>

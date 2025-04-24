@@ -1,6 +1,6 @@
 const SubmitImageApi = async (formData) => {
 
-     console.log(formData,"dfffff")
+   
     try {
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/imageUpload`, {
         method: "POST",

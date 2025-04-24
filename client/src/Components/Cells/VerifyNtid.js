@@ -43,13 +43,13 @@ function VerifyNtid({ ntid, rowntid, rowold_imei }) {
       {rowntid ? (
         <Button
           onClick={handleVerifyNtid}
-          variant="btn-md btn-success small"
+          variant="btn-md btn-success btn-sm"
           label="Verified"
         />
       ) : (
         <Button
           onClick={handleVerifyNtid}
-          variant="btn-md btn-success small"
+          variant="btn-md btn-success btn-sm"
           label="Verify"
         />
       )}
