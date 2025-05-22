@@ -1,0 +1,15 @@
+
+
+.market-table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .market-table th {
+    background-color: #f8e0f1;
+    color: #d81b60;
+    font-weight: bold;
+  }
+  .market-table td {
+    vertical-align: middle;
+  }

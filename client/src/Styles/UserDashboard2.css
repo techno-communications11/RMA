@@ -1,0 +1,114 @@
+
+    .dashboard-wrapper {
+      height: 90vh;
+      background: linear-gradient(
+        135deg,
+        rgba(246, 193, 229, 0.43) 0%,
+        rgba(199, 219, 251, 0.35) 100%
+      );
+      overflow: hidden;
+    }
+
+    .dashboard-container {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .header-section {
+      height: 20vh;
+    }
+
+    .image-container {
+      height: 100%;
+      border-radius: 12px;
+      position: relative;
+      background-image: url('../../../../public/ship.jpg');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .content-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+    }
+
+    .content-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      height: 100%;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .chart-section {
+      height: 80%;
+    }
+
+    .chart-card {
+      height: 100%;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content-section {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-rows: repeat(3, 80px);
+      }
+
+      .chart-section {
+        min-height: 300px;
+      }
+    }
