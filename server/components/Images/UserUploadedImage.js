@@ -74,7 +74,7 @@ const userUploadedImage = async (req, res) => {
   console.log('Request parameters:', req.params);
   console.log('Received showntid:', showntid);
 
-  if (!showntid || typeof showntid !== 'string' || showntid.trim() === '') {
+  if (!showntid) {
     return res.status(400).json({ error: 'Invalid or missing showntid' });
   }
 

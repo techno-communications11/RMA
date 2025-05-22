@@ -6,7 +6,7 @@ const GetUserUploadedImages = async (showntid) => {
 
   const normalizedShowntid = String(showntid).trim();
   if (!normalizedShowntid) {
-    console.error('Invalid showntid:', showntid);
+    // console.error('Invalid showntid:', showntid);
     throw new Error('Invalid or missing showntid');
   }
 

@@ -11,6 +11,7 @@ const imageUpload = async (req, res) => {
 
     // Get old_imei and ntid from the request body
     const { old_imei, ntid } = req.body;
+     console.log('Request body to upload images:', req.body);
     if (!old_imei || !ntid) {
       return res.status(400).json({ error: 'old_imei and ntid are required' });
     }
