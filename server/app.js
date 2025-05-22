@@ -18,7 +18,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g., mobile apps or curl)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
@@ -43,6 +42,9 @@ app.use('/api', authRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
+  if (err.message === 'Not allowed by CORS') {
+    return res.status(403).json({ message: 'CORS error: Origin not allowed' });
+  }
   console.error(err.stack);
   res.status(500).json({ message: 'Something broke!' });
 });

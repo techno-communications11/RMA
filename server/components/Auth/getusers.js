@@ -3,7 +3,7 @@ const db = require('../../databaseConnection/db.js');
 const getusers = async (req, res) => {
     try {
         const userId = req.user.id;
-        const query = 'SELECT *FROM users WHERE id = ?';
+        const query = 'SELECT * FROM users WHERE id = ?';
         const [result] = await db.execute(query, [userId]);
 
         if (result.length === 0) {
@@ -19,4 +19,4 @@ const getusers = async (req, res) => {
     }
 };
 
-module.exports = { getusers };
+module.exports = {getusers} ;
