@@ -15,6 +15,7 @@ const { getStoresForMarket } = require('../components/getStoresForMarket');
 const { getMarketImageCounts, getStoresImageByMarket } = require('../components/getStoresImageStats.js');
 const { fileUploadAndUpdate } = require("../components/fileUploadAndUpdate.js");
 const { getStores } = require('../components/getStores.js');
+const { authenticate } = require("../Middleware/authMiddleware.js");
 
 // Public routes
 router.post("/login", login);
