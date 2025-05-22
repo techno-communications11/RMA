@@ -10,7 +10,7 @@ const app = express();
 
 // Define allowed origins
 const allowedOrigins = [
-  'http://localhost:3001', // Development
+  'http://localhost:3088', // Development
   'https://inventory.techno-communications.com', // Production
 ];
 

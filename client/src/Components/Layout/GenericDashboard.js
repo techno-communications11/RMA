@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Tabs, Tab, Container } from 'react-bootstrap';
 import Markets from '../../Pages/Markets';
 import MarketImageStats from '../../Pages/MarketImageStats';

@@ -1,7 +1,4 @@
-
 const db = require("../databaseConnection/db");
-
-
 
 const getxbmdata = async (req, res) => {
   try {
@@ -21,9 +18,9 @@ LEFT JOIN (
     res.status(200).json(result);
   } catch (error) {
     console.error("Error in getdata:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to fetch data",
-      details: error.message 
+      details: error.message,
     });
   }
 };

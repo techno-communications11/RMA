@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  Alert, Table } from "react-bootstrap";
 import {
-  FaStore,
+ 
   FaExclamationTriangle,
   FaChevronDown,
   FaChevronUp,

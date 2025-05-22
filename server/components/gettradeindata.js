@@ -1,9 +1,5 @@
 const db = require("../databaseConnection/db");
 
-
-
-
-
 const gettradeindata = async (req, res) => {
   try {
     const [result] = await db.execute(`
@@ -20,14 +16,12 @@ LEFT JOIN (
 ) AS im ON ti.old_imei = im.old_imei;
     `);
 
-    
-
     res.status(200).json(result);
   } catch (error) {
     console.error("Error in getdata:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to fetch data",
-      details: error.message 
+      details: error.message,
     });
   }
 };
