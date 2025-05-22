@@ -1,4 +1,4 @@
-const db = require('../databaseConnection/db.js');
+    const db = require('../databaseConnection/db.js');
 
 // Endpoint to register a new market
 const registermarket = async (req, res) => {
