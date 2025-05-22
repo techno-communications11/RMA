@@ -22,7 +22,7 @@ const { getStores } = require("../components/getStores");
 const { getusers } = require("../components/Auth/getusers"); // Verify this import
 const authenticate = require("../Middleware/authMiddleware"); // Verify this import
 const { gettradeindata } = require("../components/gettradeindata"); // Verify this import
-const { userUploadedImage } = require("../components/Images/userUploadedImage"); // Verify this import
+const { userUploadedImage } = require("../components/Images/UserUploadedImage"); // Verify this import
 
 // Public routes
 router.post("/login", login);
