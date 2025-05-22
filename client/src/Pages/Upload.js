@@ -6,7 +6,7 @@ import "../Styles/Upload.css";
 import FileTypes from "../Constants/FileTypes";
 import LoadingSpinner from "../Components/Messages/LoadingSpinner";
 import Button from "../Components/Events/Button";
-import AlertMessage from "../Components/Messages/AlertMessage"; // Custom Alert
+import AlertMessage from "../Components/Messages/AlertMessage";
 import { handleUpload, validateFile } from "../Components/Apis/uploadUtils";
 
 function FileUpload() {
@@ -59,35 +59,47 @@ function FileUpload() {
       return;
     }
 
-     console.log("Uploading file:", file.name, "Type:", selectedType.label);
+    setIsLoading(true); // Show loader
+    setError(null);
+    setSuccess(null);
+
+    console.log(`[${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}] INFO: Uploading file: ${file.name}, Type: ${selectedType.label}`);
 
     try {
       const result = await handleUpload({
-        file ,
+        file,
         type: selectedType,
         onSuccess: (successData) => {
-          setSuccess(successData);
+          // Format success message based on backend response
+          const message = `Upload successful! Processed ${successData.totalRecords} records: ${successData.inserted} inserted, ${successData.skipped} skipped.`;
+          setSuccess({ title: "Upload Complete", message });
           setFile(null);
           setSelectedType(null);
-          setError(null);
         },
         onError: (errorData) => {
           setError(errorData);
         },
         onFinally: () => {
-          setIsLoading(false);
+          setIsLoading(false); // Hide loader
         },
       });
 
       if (!result.success) {
-        setError(result.error);
+        setError({
+          title: "Upload Failed",
+          message: result.error?.message || "An error occurred during upload",
+        });
+        console.error(`[${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}] ERROR: Upload failed: ${result.error?.message || 'Unknown error'}`);
       }
     } catch (err) {
+      const errorMsg = "An unexpected error occurred during upload";
       setError({
         title: "Upload Failed",
-        message: "An unexpected error occurred during upload",
+        message: errorMsg,
       });
-      console.error("Upload error:", err);
+      console.error(`[${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}] ERROR: Upload error: ${err.message}`);
+    } finally {
+      setIsLoading(false); // Ensure loader is hidden
     }
   };
 
@@ -177,7 +189,10 @@ function FileUpload() {
 
               <div className="d-flex gap-2 mt-3">
                 {isLoading ? (
-                  <LoadingSpinner />
+                  <div className="w-100 text-center">
+                    <LoadingSpinner />
+                    <p className="text-muted mt-2">Uploading {file.name}...</p>
+                  </div>
                 ) : (
                   <>
                     <Button
@@ -202,6 +217,7 @@ function FileUpload() {
 
       {(error || success) && (
         <AlertMessage
+          title={error?.title || success?.title}
           message={error?.message || success?.message}
           type={error ? "danger" : "success"}
           icon={error ? <FaExclamationCircle className="me-2" /> : null}

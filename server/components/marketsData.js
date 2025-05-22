@@ -2,6 +2,7 @@ const db = require("../databaseConnection/db");
 
 const getMarketsData = async (req, res) => {
   const { TableName } = req.params;
+   console.log("TableName:", TableName);
   try {
     // Query to get count of RMAs grouped by market and created date
     const getMarketsRmaStatsQuery = `
